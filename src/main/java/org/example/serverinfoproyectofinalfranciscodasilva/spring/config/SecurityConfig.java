@@ -26,9 +26,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
-
                                 .requestMatchers("/upload").permitAll()
-
+                                .requestMatchers("/download/**").permitAll()
                                 .anyRequest().authenticated()
                 ).build();
     }

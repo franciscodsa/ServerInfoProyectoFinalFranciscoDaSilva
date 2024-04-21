@@ -1,14 +1,13 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Client;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FileDB;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.FileDBServices;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -28,4 +27,14 @@ public class FileDBController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Failed");
         }
     }
+
+    @GetMapping("/download/{fileId}")
+    public ResponseEntity<byte[]> getFile(@PathVariable Long fileId){
+        FileDB fileDB = fileDBServices.getFile(fileId);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getFileName() + "\"")
+                .body(fileDB.getData());
+    }
+
 }
