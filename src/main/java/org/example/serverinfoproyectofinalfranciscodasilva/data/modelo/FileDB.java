@@ -1,9 +1,6 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.data.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -14,14 +11,20 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @Table(name = "files")
-public class Files {
+public class FileDB {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String fileName;
+
     private String fileType;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] data;
+
     private String description;
 
     @ManyToOne

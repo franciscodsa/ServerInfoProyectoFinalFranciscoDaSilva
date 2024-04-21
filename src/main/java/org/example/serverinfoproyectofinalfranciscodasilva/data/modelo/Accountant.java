@@ -3,6 +3,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.data.modelo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 @Entity
 @Getter
@@ -28,7 +29,7 @@ public class Accountant {
 
     private String lastName;
 
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @OneToMany(mappedBy = "accountant")
     private List<Client> clientList;
