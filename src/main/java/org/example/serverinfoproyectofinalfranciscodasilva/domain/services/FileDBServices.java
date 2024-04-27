@@ -1,8 +1,8 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.domain.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Client;
-import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FileDB;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Cliente;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Archivo;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.ClientRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.FileDBRepository;
 import org.springframework.stereotype.Service;
@@ -19,22 +19,22 @@ public class FileDBServices {
 
     private final ClientRepository clientRepository;
 
-    public FileDB store(MultipartFile file, String description, Long clientId) {
+    public Archivo store(MultipartFile file, String description, Long clientId) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            Client client = clientRepository.findById(clientId)
+            Cliente cliente = clientRepository.findById(clientId)
                     .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con el ID: " + clientId));
 
-            FileDB fileDB = new FileDB();
+            Archivo archivo = new Archivo();
 
-            fileDB.setFileName(fileName);
-            fileDB.setFileType(file.getContentType());
-            fileDB.setData(file.getBytes());
-            fileDB.setDescription(description);
-            fileDB.setClient(client);
+            archivo.setFileName(fileName);
+            archivo.setFileType(file.getContentType());
+            archivo.setData(file.getBytes());
+            archivo.setDescription(description);
+            archivo.setCliente(cliente);
 
-            return fileDBRepository.save(fileDB);
+            return fileDBRepository.save(archivo);
         } catch (IOException e) {
             //todo colocar excepcion mapeada
             throw new RuntimeException(e);
@@ -42,7 +42,7 @@ public class FileDBServices {
     }
 
     //todo modificar para sar el optional y enviar excepcion en caso de error
-    public FileDB getFile(Long id) {
+    public Archivo getFile(Long id) {
         return fileDBRepository.findById(id).get();
     }
 

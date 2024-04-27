@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -13,15 +12,18 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@Table(name = "clients")
-public class Client {
+@Table(name = "accountant")
+public class Contador {
 
     @Id
+    @Column(name = "id", nullable = false)
     private Long id;
 
     private String email;
 
+
     private String phone;
+
 
     private String firstName;
 
@@ -29,20 +31,9 @@ public class Client {
 
     private LocalDate dateOfBirth;
 
-    private Double revenue;
+    @OneToMany(mappedBy = "accountant")
+    private List<Cliente> clienteList;
 
-    private Double expenses;
-
-    private Double irpf;
-
-    private Double iva;
-
-    @ManyToOne
-    private Accountant accountant;
-
-    @ManyToOne
-    private Chat chat;
-
-    @OneToMany(mappedBy = "client")
-    private List<FileDB> fileDBList;
+    @OneToMany(mappedBy = "accountant")
+    private List<Chat> chatList;
 }

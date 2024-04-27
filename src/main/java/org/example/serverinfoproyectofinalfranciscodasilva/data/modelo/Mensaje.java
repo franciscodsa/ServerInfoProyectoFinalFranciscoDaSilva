@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @Table(name = "messages")
-public class Message {
+public class Mensaje {
 
     @Id
     private Long id;

@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @Table(name = "files")
-public class FileDB {
+public class Archivo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,6 @@ public class FileDB {
     private String description;
 
     @ManyToOne
-    private Client client;
+    private Cliente cliente;
 
 }
