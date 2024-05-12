@@ -1,7 +1,7 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Archivo;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.FileDBServices;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,11 +30,11 @@ public class FileDBController {
 
     @GetMapping("/download/{fileId}")
     public ResponseEntity<byte[]> getFile(@PathVariable Long fileId){
-        Archivo archivo = fileDBServices.getFile(fileId);
+        FilesDB filesDB = fileDBServices.getFile(fileId);
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + archivo.getFileName() + "\"")
-                .body(archivo.getData());
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filesDB.getFileName() + "\"")
+                .body(filesDB.getData());
     }
 
 }

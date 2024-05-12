@@ -6,12 +6,11 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
 @Table(name = "files")
-public class Archivo {
+public class FilesDB {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +27,6 @@ public class Archivo {
     private String description;
 
     @ManyToOne
-    private Cliente cliente;
+    private Client client;
 
 }

@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AppError {
+public class AppMessage {
 
     private String message;
     private LocalDateTime fecha;
 
-    public AppError(String message) {
+    public AppMessage(String message) {
         this.message = message;
         this.fecha = LocalDateTime.now();
     }

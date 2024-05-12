@@ -20,10 +20,10 @@ public class Chat {
     private Long id;
 
     @ManyToOne
-    private Contador contador;
+    private Accountant accountant;
 
     @ManyToOne
-    private Cliente cliente;
+    private Client client;
 
     @OneToMany(mappedBy = "chat")
     private List<Mensaje> mensajeList;

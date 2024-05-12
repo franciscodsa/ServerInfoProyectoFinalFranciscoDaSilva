@@ -28,6 +28,8 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/upload").permitAll()
                                 .requestMatchers("/download/**").permitAll()
+                                .requestMatchers("/users/**").permitAll()
+                                .requestMatchers("/clients/**").permitAll()
                                 .anyRequest().authenticated()
                 ).build();
     }

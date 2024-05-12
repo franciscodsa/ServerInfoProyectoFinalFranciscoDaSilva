@@ -1,22 +1,24 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.data.modelo;
 
+
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @AllArgsConstructor
-@Table(name = "clients")
-public class Cliente {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     private String email;
@@ -28,21 +30,4 @@ public class Cliente {
     private String lastName;
 
     private LocalDate dateOfBirth;
-
-    private Double revenue;
-
-    private Double expenses;
-
-    private Double irpf;
-
-    private Double iva;
-
-    @ManyToOne
-    private Contador contador;
-
-    @ManyToOne
-    private Chat chat;
-
-    @OneToMany(mappedBy = "client")
-    private List<Archivo> archivoList;
 }
