@@ -2,7 +2,6 @@ package org.example.serverinfoproyectofinalfranciscodasilva.data.modelo;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.commons.lang3.builder.ToStringExclude;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,25 +16,29 @@ import java.util.List;
 @Table(name = "clients")
 public class Client extends User{
 
+    /*@ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Balance> balances;*/
+
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
-    private Balance balance;
-
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Accountant accountant;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToOne
     private Chat chat;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FilesDB> filesDBList;
 
-    public Client(Long id, String email, String phone, String firstName, String lastName, LocalDate dateOfBirth, Balance balance, Accountant accountant, Chat chat, List<FilesDB> filesDBList) {
-        super(id, email, phone, firstName, lastName, dateOfBirth);
-        this.balance = balance;
+    public Client(String email, String phone, String firstName, String lastName, LocalDate dateOfBirth, /*List<Balance> balances,*/ Accountant accountant, Chat chat, List<FilesDB> filesDBList) {
+        super( email, phone, firstName, lastName, dateOfBirth);
+        /*this.balances = balances;*/
         this.accountant = accountant;
         this.chat = chat;
         this.filesDBList = filesDBList;

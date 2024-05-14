@@ -19,12 +19,12 @@ public class FileDBServices {
 
     private final ClientRepository clientRepository;
 
-    public FilesDB store(MultipartFile file, String description, Long clientId) {
+    public FilesDB store(MultipartFile file, String description, String clientEmail) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            Client client = clientRepository.findById(clientId)
-                    .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con el ID: " + clientId));
+            Client client = clientRepository.findById(clientEmail)
+                    .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con el ID: " + clientEmail));
 
             FilesDB filesDB = new FilesDB();
 

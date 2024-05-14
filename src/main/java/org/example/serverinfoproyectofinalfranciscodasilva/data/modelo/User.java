@@ -18,9 +18,6 @@ import java.time.LocalDate;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
-
     private String email;
 
     private String phone;

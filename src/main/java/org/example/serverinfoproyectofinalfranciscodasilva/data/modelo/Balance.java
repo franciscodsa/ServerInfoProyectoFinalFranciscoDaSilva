@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name = "balance")
 public class Balance {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,6 +28,10 @@ public class Balance {
 
     private LocalDate date;
 
-    @OneToOne
-    private Client client;
+    private String quarter;
+
+    @Column(name = "client_email")
+    private String clientEmail;
+ /*   @ManyToOne
+    private Client client;*/
 }

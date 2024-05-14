@@ -1,4 +1,4 @@
-package org.example.serverinfoproyectofinalfranciscodasilva.domain.model;
+package org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,11 +9,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ClientDTO {
-    private Long id;
-    private LocalDate dateOfBirth;
+public class ClientInfoDTO {
     private String email;
+    private LocalDate dateOfBirth;
     private String firstName;
     private String lastName;
     private String phone;
+    private String accountantEmail;
 }

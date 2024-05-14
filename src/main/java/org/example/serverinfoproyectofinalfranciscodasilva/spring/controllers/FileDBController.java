@@ -18,9 +18,9 @@ public class FileDBController {
 
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("description")String description, @RequestParam Long clientId){
+    public ResponseEntity<String> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("description")String description, @RequestParam String clientEmail){
         try {
-            fileDBServices.store(file,description, clientId);
+            fileDBServices.store(file,description, clientEmail);
 
             return ResponseEntity.status(HttpStatus.OK).body("Uploaded");
         } catch (Exception e) {
