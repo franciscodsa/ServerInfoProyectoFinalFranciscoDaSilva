@@ -22,7 +22,7 @@ public class Chat {
     @ManyToOne
     private Accountant accountant;
 
-    @ManyToOne
+    @OneToOne
     private Client client;
 
     @OneToMany(mappedBy = "chat")

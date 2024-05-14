@@ -2,6 +2,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Client;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.ClientDTO;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.ClientServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,8 @@ public class ClientController {
     }
 
     @GetMapping
-    public List<Client> getAllClientes() {
-        return clientServices.getAll();
+    public List<ClientDTO> getAllClientes() {
+        final List<ClientDTO> all = clientServices.getAll();
+        return all;
     }
 }

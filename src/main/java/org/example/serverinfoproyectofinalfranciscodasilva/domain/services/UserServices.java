@@ -1,11 +1,11 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.domain.services;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.User;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.UserRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

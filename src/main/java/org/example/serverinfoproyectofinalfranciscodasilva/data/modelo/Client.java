@@ -17,16 +17,19 @@ import java.util.List;
 @Table(name = "clients")
 public class Client extends User{
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
     private Balance balance;
 
     @ManyToOne
     private Accountant accountant;
 
-    @ManyToOne
+    @OneToOne
     private Chat chat;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<FilesDB> filesDBList;
 

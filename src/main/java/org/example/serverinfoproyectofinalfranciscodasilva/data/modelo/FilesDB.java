@@ -27,6 +27,7 @@ public class FilesDB {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
 }
