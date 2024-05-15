@@ -19,8 +19,10 @@ public class Client extends User{
     @Column(name = "accountant_email")
     private String accountantEmail;
 
-    @Column(name = "chat_id")
-    private Long chatId;
+ /*   @Column(name = "chat_id")
+    private Long chatId;*/
+
+
 
 
     /*@ToString.Exclude
