@@ -16,12 +16,19 @@ import java.util.List;
 @Table(name = "clients")
 public class Client extends User{
 
+    @Column(name = "accountant_email")
+    private String accountantEmail;
+
+    @Column(name = "chat_id")
+    private Long chatId;
+
+
     /*@ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Balance> balances;*/
 
-    @ToString.Exclude
+   /* @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(cascade = CascadeType.ALL)
     private Accountant accountant;
@@ -36,11 +43,11 @@ public class Client extends User{
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FilesDB> filesDBList;
 
-    public Client(String email, String phone, String firstName, String lastName, LocalDate dateOfBirth, /*List<Balance> balances,*/ Accountant accountant, Chat chat, List<FilesDB> filesDBList) {
+    public Client(String email, String phone, String firstName, String lastName, LocalDate dateOfBirth, *//*List<Balance> balances,*//* Accountant accountant, Chat chat, List<FilesDB> filesDBList) {
         super( email, phone, firstName, lastName, dateOfBirth);
-        /*this.balances = balances;*/
+        *//*this.balances = balances;*//*
         this.accountant = accountant;
         this.chat = chat;
         this.filesDBList = filesDBList;
-    }
+    }*/
 }

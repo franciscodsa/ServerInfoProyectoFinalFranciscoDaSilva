@@ -32,7 +32,7 @@ public class FileDBServices {
             filesDB.setFileType(file.getContentType());
             filesDB.setData(file.getBytes());
             filesDB.setDescription(description);
-            filesDB.setClient(client);
+            filesDB.setClientEmail(client.getEmail());
 
             return fileDBRepository.save(filesDB);
         } catch (IOException e) {

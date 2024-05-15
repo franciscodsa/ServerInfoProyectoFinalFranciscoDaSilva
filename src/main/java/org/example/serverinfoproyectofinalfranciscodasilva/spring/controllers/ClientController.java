@@ -16,13 +16,18 @@ public class ClientController {
     private final ClientServices clientServices;
 
     @PostMapping
-    public Client addCliente(@RequestBody Client cliente) {
+    public Client addClient(@RequestBody Client cliente) {
         return clientServices.add(cliente);
     }
 
     @GetMapping
-    public List<ClientInfoDTO> getAllClientes() {
-        final List<ClientInfoDTO> all = clientServices.getAll();
+    public List<Client> getAllClientes() {
+        final List<Client> all = clientServices.getAll();
         return all;
+    }
+
+    @GetMapping("/{clientEmail}")
+    public Client getClientByEmail(@PathVariable String clientEmail){
+        return clientServices.getByEmail(clientEmail);
     }
 }

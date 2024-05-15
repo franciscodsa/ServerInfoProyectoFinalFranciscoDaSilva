@@ -11,14 +11,13 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @Builder(builderMethodName = "accountantBuilder")
-@AllArgsConstructor
 @Table(name = "accountant")
 public class Accountant extends User {
 
-    //todo ver si se puede quitar y en su lugar tener un joincolum en client nada mas
+    /*//todo ver si se puede quitar y en su lugar tener un joincolum en client nada mas
     @OneToMany(mappedBy = "accountant")
     private List<Client> clientList;
 
     @OneToMany(mappedBy = "accountant")
-    private List<Chat> chatList;
+    private List<Chat> chatList;*/
 }
