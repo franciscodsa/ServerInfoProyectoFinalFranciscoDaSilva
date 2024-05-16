@@ -2,6 +2,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.FileDBServices;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,13 @@ public class FileDBController {
 
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("description")String description, @RequestParam String clientEmail){
+    public ResponseEntity<AppMessage> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("description")String description, @RequestParam String clientEmail){
         try {
             fileDBServices.store(file,description, clientEmail);
 
-            return ResponseEntity.status(HttpStatus.OK).body("Uploaded");
+            return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Uploaded"));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Failed");
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new AppMessage("Failed"));
         }
     }
 
