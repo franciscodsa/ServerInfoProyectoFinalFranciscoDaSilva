@@ -6,7 +6,6 @@ import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Client;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.ClientRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.UserRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
-import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.client.ClientInfoDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class ClientServices {
     }
 
     public Client getByEmail(String email) {
-        Client client = clientRepository.findById(email).orElseThrow(() -> new UsersException("Usuario no encontrado") );
+        Client client = clientRepository.findById(email).orElseThrow(() -> new UsersException("Usuario no encontrado"));
 
         return client;
     }

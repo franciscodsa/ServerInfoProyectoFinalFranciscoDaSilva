@@ -2,7 +2,9 @@ package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceType;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.FileDBServices;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class FileDBController {
@@ -20,9 +24,14 @@ public class FileDBController {
 
 
     @PostMapping("/upload")
-    public ResponseEntity<AppMessage> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("description")String description, @RequestParam String clientEmail){
+    public ResponseEntity<AppMessage> uploadFile(
+            @RequestParam("file")MultipartFile file,
+            @RequestParam("description")String description,
+            @RequestParam ("clientEmail") String clientEmail,
+            @RequestParam("invoiceType") InvoiceType invoiceType
+    ){
         try {
-            fileDBServices.store(file,description, clientEmail);
+            fileDBServices.store(file,description, clientEmail, invoiceType);
 
             return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Uploaded"));
         } catch (Exception e) {
@@ -30,14 +39,6 @@ public class FileDBController {
         }
     }
 
-  /*  @GetMapping("/download/{fileId}")
-    public ResponseEntity<byte[]> getFile(@PathVariable Long fileId){
-        FilesDB filesDB = fileDBServices.getFile(fileId);
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filesDB.getFileName() + "\"")
-                .body(filesDB.getData());
-    }*/
     @GetMapping("/download/{fileId}")
     public ResponseEntity<byte[]> getFile(@PathVariable Long fileId) {
         FilesDB filesDB = fileDBServices.getFile(fileId);
@@ -47,7 +48,6 @@ public class FileDBController {
             headers.setContentType(MediaType.parseMediaType(filesDB.getFileType())); // Establece el tipo MIME correcto
             headers.setContentLength(filesDB.getData().length); // Establece la longitud del contenido
 
-
             // Agregar el encabezado Content-Disposition con el nombre del archivo
             String fileName = filesDB.getFileName(); // Reemplaza esto con el nombre del archivo real
             headers.setContentDispositionFormData("attachment", fileName);
@@ -56,6 +56,21 @@ public class FileDBController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+
+    @GetMapping("/filesInfo")
+    public List<FilesDBInfoDTO> getFilesByClient(@RequestParam String clientEmail){
+        return null;
+    }
+    @GetMapping("/expensesFilesInfo")
+    public List<FilesDBInfoDTO> getExpensesFilesByClient(@RequestParam String clientEmail){
+        return null;
+    }
+
+    @GetMapping("/incomeFilesInfo")
+    public List<FilesDBInfoDTO> getIncomeFilesByClient(@RequestParam String clientEmail){
+        return null;
     }
 
 }

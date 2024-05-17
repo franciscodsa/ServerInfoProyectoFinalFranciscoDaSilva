@@ -2,7 +2,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Balance;
-import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.balance.BalanceDto;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.BalanceDTO;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.BalanceServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +18,11 @@ public class BalanceController {
     private final BalanceServices balanceServices;
 
     @GetMapping("/quarter")
-    public ResponseEntity<BalanceDto> getBalancesByClientIdAndYearAndQuarter(
+    public ResponseEntity<BalanceDTO> getBalancesByClientIdAndYearAndQuarter(
             @RequestParam String clientEmail,
             @RequestParam int year,
             @RequestParam String quarter) {
-        BalanceDto balance = balanceServices.findByClientIdAndYearAndQuarter(clientEmail, year, quarter);
+        BalanceDTO balance = balanceServices.findByClientIdAndYearAndQuarter(clientEmail, year, quarter);
         return new ResponseEntity<>(balance, HttpStatus.OK);
     }
 

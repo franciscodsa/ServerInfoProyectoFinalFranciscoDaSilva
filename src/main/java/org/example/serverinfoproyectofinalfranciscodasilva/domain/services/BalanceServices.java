@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Balance;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.BalanceRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.ClientRepository;
-import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.balance.BalanceDto;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.BalanceDTO;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,7 +30,7 @@ public class BalanceServices {
         return balanceRepository.save(balance);
     }
 
-    public BalanceDto findByClientIdAndYearAndQuarter(String clientEmail, int year, String quarter) {
+    public BalanceDTO findByClientIdAndYearAndQuarter(String clientEmail, int year, String quarter) {
         /*LocalDate startDate = calculateStartDate(year, quarter);
         LocalDate endDate = startDate.plusMonths(3).minusDays(1);*/
         return balanceRepository.findByClientEmailAndQuarterAndYear(clientEmail, quarter, year);

@@ -1,4 +1,5 @@
-package org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.balance;
+package org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-public class BalanceDto {
+public class BalanceDTO {
 
     private Double revenue;
 
@@ -23,7 +24,7 @@ public class BalanceDto {
 
     private String clientEmail;
 
-    public BalanceDto(Double revenue, Double expenses, Double irpf, Double iva, String clientEmail) {
+    public BalanceDTO(Double revenue, Double expenses, Double irpf, Double iva, String clientEmail) {
         this.revenue = revenue;
         this.expenses = expenses;
         this.irpf = irpf;

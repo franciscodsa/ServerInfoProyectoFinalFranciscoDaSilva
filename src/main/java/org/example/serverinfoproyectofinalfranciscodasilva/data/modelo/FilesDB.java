@@ -26,12 +26,8 @@ public class FilesDB {
 
     private String description;
 
-    /*@ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;*/
-
-
     @Column(name = "client_email")
     private String clientEmail;
 
+    private InvoiceType invoiceType;
 }
