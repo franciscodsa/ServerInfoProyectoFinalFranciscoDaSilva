@@ -1,13 +1,28 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.data.repositories;
 
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceType;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface FileDBRepository extends ListCrudRepository<FilesDB, Long> {
 
     //todo haz metodo para que te devuelva una lista de todos los archivos sin los archivos, necesitaras un dto
 
+/*    @Query("SELECT new org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO(f.id, f.fileName, f.description) FROM FilesDB f WHERE f.clientEmail = :clientEmail and f.invoiceType =: invoiceType")
+    List<FilesDBInfoDTO> getExpenseFilesInfo(String clientEmail, InvoiceType invoiceType);*/
+
+  /*  @Query("SELECT new org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO(f.id, f.fileName, f.description) FROM FilesDB f WHERE f.clientEmail = :clientEmail and f.invoiceType = :invoiceType")
+    List<FilesDBInfoDTO> getExpenseFilesInfo(String clientEmail, InvoiceType invoiceType);*/
+
+    @Query("SELECT new org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO(f.id, f.fileName, f.description) " +
+            "FROM FilesDB f WHERE f.clientEmail = :clientEmail AND f.invoiceType = :invoiceType")
+    List<FilesDBInfoDTO> getExpenseFilesInfo(@Param("clientEmail") String clientEmail, @Param("invoiceType") InvoiceType invoiceType);
 
 }

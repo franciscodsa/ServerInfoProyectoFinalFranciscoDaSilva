@@ -31,6 +31,7 @@ public class SecurityConfig {
                                 .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/clients/**").permitAll()
                                 .requestMatchers("/balances/**").permitAll()
+                                .requestMatchers("/expensesFilesInfo").permitAll()
                                 .anyRequest().authenticated()
                 ).build();
     }

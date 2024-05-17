@@ -3,6 +3,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceType;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.FileDBRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.FileDBServices;
@@ -22,6 +23,7 @@ public class FileDBController {
 
     private final FileDBServices fileDBServices;
 
+    private final FileDBRepository fileDBRepository;
 
     @PostMapping("/upload")
     public ResponseEntity<AppMessage> uploadFile(
@@ -58,14 +60,13 @@ public class FileDBController {
         }
     }
 
-
     @GetMapping("/filesInfo")
     public List<FilesDBInfoDTO> getFilesByClient(@RequestParam String clientEmail){
         return null;
     }
     @GetMapping("/expensesFilesInfo")
-    public List<FilesDBInfoDTO> getExpensesFilesByClient(@RequestParam String clientEmail){
-        return null;
+    public ResponseEntity<List<FilesDBInfoDTO>> getExpensesFilesByClient(@RequestParam String clientEmail){
+        return ResponseEntity.ok(fileDBServices.getExpensesFilesByClient(clientEmail));
     }
 
     @GetMapping("/incomeFilesInfo")

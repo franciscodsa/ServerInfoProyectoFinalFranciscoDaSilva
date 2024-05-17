@@ -10,8 +10,6 @@ import lombok.Setter;
 @Setter
 public class FilesDBInfoDTO {
     private Long id;
-
     private String fileName;
-
     private String description;
 }

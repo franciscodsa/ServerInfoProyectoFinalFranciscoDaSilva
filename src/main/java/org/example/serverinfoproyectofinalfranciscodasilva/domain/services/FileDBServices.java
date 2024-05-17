@@ -55,7 +55,8 @@ public class FileDBServices {
     }
 
     public List<FilesDBInfoDTO> getExpensesFilesByClient(String clientEmail){
-        return null;
+        final List<FilesDBInfoDTO> expenseFilesInfo = fileDBRepository.getExpenseFilesInfo(clientEmail, InvoiceType.EXPENSE);
+        return expenseFilesInfo;
     }
     public List<FilesDBInfoDTO> getIncomeFilesByClient(String clientEmail){
         return null;
