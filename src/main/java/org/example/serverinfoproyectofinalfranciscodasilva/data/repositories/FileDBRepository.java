@@ -21,4 +21,5 @@ public interface FileDBRepository extends ListCrudRepository<FilesDB, Long> {
             "FROM FilesDB f WHERE f.clientEmail = :clientEmail")
     List<FilesDBInfoDTO> getFilesInfoByClient(@Param("clientEmail") String clientEmail);
 
+    void deleteAllByClientEmail(String clientEmail);
 }

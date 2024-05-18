@@ -28,4 +28,5 @@ public interface BalanceRepository extends ListCrudRepository<Balance, Long> {
     @Query("DELETE FROM Balance b WHERE b.clientEmail = :clientEmail AND b.quarter = :quarter AND YEAR(b.date) = :year")
     void deleteByClientEmailAndQuarterAndYear(String clientEmail, String quarter, int year);
 
+    void deleteAllByClientEmail(String email);
 }

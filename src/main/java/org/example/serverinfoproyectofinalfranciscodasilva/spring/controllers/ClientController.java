@@ -38,4 +38,9 @@ public class ClientController {
         clientServices.deleteByEmail(clientEmail);
         return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Eliminado"));
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<Client> updateClient(@RequestBody Client client) {
+        return ResponseEntity.ok(clientServices.updateClient(client));
+    }
 }

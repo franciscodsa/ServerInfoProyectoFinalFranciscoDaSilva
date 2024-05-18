@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "clients")
 public class Client extends User{
 
-    @Column(name = "accountant_email")
+    @Column(name = "accountant_email", nullable = true)
     private String accountantEmail;
 
  /*   @Column(name = "chat_id")

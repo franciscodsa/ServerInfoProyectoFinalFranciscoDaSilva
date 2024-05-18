@@ -2,6 +2,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.User;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +31,11 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable String email) {
         User user = userServices.getUserByEmail(email);
         return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<AppMessage> deleteUser(@PathVariable String email) {
+        userServices.deleteUser(email);
+        return ResponseEntity.ok().body(new AppMessage("Eliminado"));
     }
 }
