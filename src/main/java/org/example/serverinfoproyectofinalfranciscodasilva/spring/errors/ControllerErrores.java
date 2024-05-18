@@ -1,5 +1,6 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.errors;
 
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.PublicKeyException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
@@ -23,6 +24,12 @@ public class ControllerErrores extends ResponseEntityExceptionHandler {
     public ResponseEntity<AppMessage> handleKeyException(UsersException e){
         AppMessage appMessage = new AppMessage(e.getMessage());
 
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appMessage);
+    }
+
+    @ExceptionHandler(FilesException.class)
+    public ResponseEntity<AppMessage> handleKeyException(FilesException e){
+        AppMessage appMessage = new AppMessage(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appMessage);
     }
 }

@@ -19,7 +19,7 @@ public class ClientServices {
     //todo: creo que es mejor no devolver el client y en su lugar devolver un AppMessage para decir que ya se agrego el usuario
     public Client add(Client client) {
         //Hay que chequear con UserRepository porque sino solo se chequea la tabla clients y puede que exista un accountant con el mismo email
-        if (userRepository.findByEmail(client.getEmail()).isPresent()) {
+        if (!userRepository.existsById(client.getEmail())) {
             throw new UsersException("Ya existe un usuario con este email");
         }
 
@@ -27,13 +27,17 @@ public class ClientServices {
     }
 
     public Client getByEmail(String email) {
-        Client client = clientRepository.findById(email).orElseThrow(() -> new UsersException("Usuario no encontrado"));
-
-        return client;
+        return clientRepository.findById(email).orElseThrow(() -> new UsersException("Usuario no encontrado"));
     }
 
     public List<Client> getAll() {
-        final List<Client> all = clientRepository.findAll();
-        return all;
+        return clientRepository.findAll();
+    }
+
+    public void deleteByEmail(String email) {
+        if (!clientRepository.existsById(email)) {
+            throw new UsersException("Usuario no encontrado");
+        }
+        clientRepository.deleteById(email);
     }
 }

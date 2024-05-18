@@ -9,5 +9,4 @@ import java.util.Optional;
 @Repository
 public interface AccountantRepository extends ListCrudRepository<Accountant, Long> {
 
-/*    Optional<Accountant> findByEmail(String email);*/
 }

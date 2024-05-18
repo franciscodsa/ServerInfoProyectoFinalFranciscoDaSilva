@@ -1,15 +1,17 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/contadores")
+@AllArgsConstructor
+@RequestMapping("/accountant")
 public class AccountantController {
 
-  /*  @Autowired
+
     private ContadorRepository contadorRepository;
 
     @PostMapping
@@ -21,5 +23,5 @@ public class AccountantController {
     public List<Contador> getAllContadores() {
         final List<Contador> all = contadorRepository.findAll();
         return all;
-    }*/
+    }
 }

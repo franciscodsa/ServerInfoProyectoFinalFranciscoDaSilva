@@ -6,6 +6,8 @@ import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceType;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.ClientRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.FileDBRepository;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesException;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -26,8 +28,12 @@ public class FileDBServices {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            Client client = clientRepository.findById(clientEmail)
-                    .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con el ID: " + clientEmail));
+           if (!clientRepository.existsById(clientEmail)){
+               throw new UsersException("No existe cliente, verifique email: " + clientEmail);
+            }
+
+           /* Client client = clientRepository.findById(clientEmail)
+                    .orElseThrow(() -> new UsersException("Cliente no encontrado con el ID: " + clientEmail));*/
 
             FilesDB filesDB = new FilesDB();
 
@@ -35,7 +41,7 @@ public class FileDBServices {
             filesDB.setFileType(file.getContentType());
             filesDB.setData(file.getBytes());
             filesDB.setDescription(description);
-            filesDB.setClientEmail(client.getEmail());
+            filesDB.setClientEmail(clientEmail);
             filesDB.setInvoiceType(invoiceType);
 
             return fileDBRepository.save(filesDB);
@@ -51,15 +57,21 @@ public class FileDBServices {
     }
 
     public List<FilesDBInfoDTO> getFilesByClient(String clientEmail){
-        return null;
+        return fileDBRepository.getFilesInfoByClient(clientEmail);
     }
 
     public List<FilesDBInfoDTO> getExpensesFilesByClient(String clientEmail){
-        final List<FilesDBInfoDTO> expenseFilesInfo = fileDBRepository.getExpenseFilesInfo(clientEmail, InvoiceType.EXPENSE);
-        return expenseFilesInfo;
+        return fileDBRepository.getFilesInfoByInvoiceTypeAndClient(clientEmail, InvoiceType.EXPENSE);
     }
     public List<FilesDBInfoDTO> getIncomeFilesByClient(String clientEmail){
-        return null;
+        return fileDBRepository.getFilesInfoByInvoiceTypeAndClient(clientEmail, InvoiceType.INCOME);
     }
 
+    public void deleteFile(Long fileId) {
+        if (!fileDBRepository.existsById(fileId)) {
+            throw new FilesException("Archivo no encontrado");
+        }
+
+        fileDBRepository.deleteById(fileId);
+    }
 }
