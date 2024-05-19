@@ -1,7 +1,6 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.domain.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Client;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceType;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.ClientRepository;
@@ -14,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -43,6 +43,7 @@ public class FileDBServices {
             filesDB.setDescription(description);
             filesDB.setClientEmail(clientEmail);
             filesDB.setInvoiceType(invoiceType);
+            filesDB.setDate(LocalDateTime.now());
 
             return fileDBRepository.save(filesDB);
         } catch (IOException e) {

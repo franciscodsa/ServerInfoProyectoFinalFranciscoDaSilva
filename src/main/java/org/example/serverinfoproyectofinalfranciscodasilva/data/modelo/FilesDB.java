@@ -3,6 +3,8 @@ package org.example.serverinfoproyectofinalfranciscodasilva.data.modelo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -19,6 +21,8 @@ public class FilesDB {
     private String fileName;
 
     private String fileType;
+
+    private LocalDateTime date;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")

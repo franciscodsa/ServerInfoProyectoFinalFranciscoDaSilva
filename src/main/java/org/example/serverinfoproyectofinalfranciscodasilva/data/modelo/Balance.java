@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,7 +27,7 @@ public class Balance {
 
     private Double iva;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
     private String quarter;
 

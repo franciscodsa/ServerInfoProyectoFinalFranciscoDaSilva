@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Getter
@@ -20,7 +21,7 @@ public class BalanceDTO {
 
     private Double iva;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
     private String clientEmail;
 
@@ -29,7 +30,7 @@ public class BalanceDTO {
         this.expenses = expenses;
         this.irpf = irpf;
         this.iva = iva;
-        this.date= LocalDate.now();
+        this.date= LocalDateTime.now();
         this.clientEmail = clientEmail;
     }
 }

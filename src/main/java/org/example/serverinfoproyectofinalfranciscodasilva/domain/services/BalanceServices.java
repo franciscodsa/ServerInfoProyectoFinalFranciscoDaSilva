@@ -8,6 +8,7 @@ import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.Bal
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,6 +25,7 @@ public class BalanceServices {
         balanceToSave.setIva(balance.getIva());
         balanceToSave.setDate(balance.getDate());*/
        /* balanceToSave.setClient(clientRepository.findById(balance.getClientEmail()).get());*/
+        balance.setDate(LocalDateTime.now());
         balance.setIrpf(calculateIrpf(balance.getRevenue(),balance.getExpenses())); // Calcular IRPF antes de guardar
         balance.setQuarter(getCurrentQuarter());
 
