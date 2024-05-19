@@ -2,6 +2,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.domain.services;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Client;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.User;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.*;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
@@ -43,11 +44,11 @@ public class UserServices {
 
     @Transactional
     public void deleteUser(String email) {
-        // Check if the user exists
-        Optional<User> userOptional = userRepository.findByEmail(email);
+
         if (!userRepository.existsById(email)) {
             throw new UsersException("Usuario inexistente");
         }
+
 
         // Delete accountant details if the user is an accountant
         accountantRepository.findById(email).ifPresent(accountant -> {
@@ -55,8 +56,15 @@ public class UserServices {
                 messagesRepository.deleteAllByChatId(chat.getId());
                 chatsRepository.delete(chat);
             });*/
+
+           clientRepository.findAllByAccountantEmail(email).forEach(client -> {
+               client.setAccountantEmail(null);
+               clientRepository.save(client);
+           });
+
             accountantRepository.delete(accountant);
         });
+
 
         // Delete client details if the user is a client
         clientRepository.findById(email).ifPresent(client -> {

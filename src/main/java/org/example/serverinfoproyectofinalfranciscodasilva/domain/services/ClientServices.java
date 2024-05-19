@@ -27,14 +27,23 @@ public class ClientServices {
         return clientRepository.save(client);
     }
 
-    public Client getByEmail(String email) {
+    public Client getClientByEmail(String email) {
         return clientRepository.findById(email).orElseThrow(() -> new UsersException("Usuario no encontrado"));
+    }
+
+    public List<Client> getClientsByAccountantEmail(String accountantEmail){
+        return clientRepository.findAllByAccountantEmail(accountantEmail);
+    }
+
+    public List<Client> getClientsWithNoAccountant(){
+        return clientRepository.findAllByAccountantEmailIsNull();
     }
 
     public List<Client> getAll() {
         return clientRepository.findAll();
     }
 
+    //todo: esto no va a hacer falta porque se eliminaran con el endpoint de users
     public void deleteByEmail(String email) {
         if (!clientRepository.existsById(email)) {
             throw new UsersException("Usuario no encontrado");

@@ -30,6 +30,7 @@ public class SecurityConfig {
                                 .requestMatchers("/download/**").permitAll()
                                 .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/clients/**").permitAll()
+                                .requestMatchers("/accountant/**").permitAll()
                                 .requestMatchers("/balances/**").permitAll()
                                 .requestMatchers("/files/**").permitAll()
                                 .anyRequest().authenticated()

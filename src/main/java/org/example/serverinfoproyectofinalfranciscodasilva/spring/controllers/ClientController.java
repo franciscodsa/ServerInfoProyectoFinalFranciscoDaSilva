@@ -18,8 +18,9 @@ public class ClientController {
     private final ClientServices clientServices;
 
     @PostMapping
-    public Client addClient(@RequestBody Client cliente) {
-        return clientServices.add(cliente);
+    public ResponseEntity<AppMessage> addClient(@RequestBody Client cliente) {
+        clientServices.add(cliente);
+        return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Cliente agregado"));
     }
 
     @GetMapping
@@ -27,12 +28,23 @@ public class ClientController {
         return clientServices.getAll();
     }
 
+    @GetMapping("/noAccountant")
+    public List<Client> getClientsWithNoAccountant(){
+        return clientServices.getClientsWithNoAccountant();
+    }
+
+    @GetMapping("/byAccountant")
+    public List<Client> getClientsByAccountantEmail(String accountantEmail){
+        return clientServices.getClientsByAccountantEmail(accountantEmail);
+    }
+
     @GetMapping("/{clientEmail}")
     public Client getClientByEmail(@PathVariable String clientEmail) {
-        return clientServices.getByEmail(clientEmail);
+        return clientServices.getClientByEmail(clientEmail);
     }
 
 
+    //todo: esto no va a hacer falta porque se eliminaran con el endpoint de users
     @DeleteMapping("/delete/{clientEmail}")
     public ResponseEntity<AppMessage> deleteClient(@PathVariable String clientEmail) {
         clientServices.deleteByEmail(clientEmail);
