@@ -32,7 +32,7 @@ public class FileDBController {
             @RequestParam("invoiceType") InvoiceType invoiceType
     ) {
         fileDBServices.store(file, description, clientEmail, invoiceType);
-        return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Uploaded"));
+        return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Subido"));
     }
 
     @GetMapping("/download/{fileId}")
