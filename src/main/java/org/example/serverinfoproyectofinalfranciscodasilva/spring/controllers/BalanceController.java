@@ -2,6 +2,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Balance;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.BalanceDTO;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.BalanceServices;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,8 @@ public class BalanceController {
     }
 
     @PostMapping()
-    public Balance addBalance(@RequestBody Balance balance){
-        return balanceServices.save(balance);
+    public ResponseEntity<AppMessage> addBalance(@RequestBody Balance balance){
+        balanceServices.save(balance);
+        return new ResponseEntity<>(new AppMessage("Agregado"), HttpStatus.OK);
     }
 }

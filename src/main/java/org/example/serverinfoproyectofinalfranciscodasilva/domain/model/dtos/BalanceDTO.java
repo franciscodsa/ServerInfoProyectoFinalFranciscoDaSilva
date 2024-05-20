@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 public class BalanceDTO {
 
-    private Double revenue;
+    private Double income;
 
     private Double expenses;
 
@@ -25,8 +24,8 @@ public class BalanceDTO {
 
     private String clientEmail;
 
-    public BalanceDTO(Double revenue, Double expenses, Double irpf, Double iva, String clientEmail) {
-        this.revenue = revenue;
+    public BalanceDTO(Double income, Double expenses, Double irpf, Double iva, String clientEmail) {
+        this.income = income;
         this.expenses = expenses;
         this.irpf = irpf;
         this.iva = iva;

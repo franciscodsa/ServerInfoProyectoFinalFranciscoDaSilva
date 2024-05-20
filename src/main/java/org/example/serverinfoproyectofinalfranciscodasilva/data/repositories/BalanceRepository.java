@@ -20,7 +20,7 @@ public interface BalanceRepository extends ListCrudRepository<Balance, Long> {
     @Query("DELETE FROM Balance b WHERE b.clientEmail = :clientEmail AND b.date BETWEEN :startDate AND :endDate")
     void deleteByClientEmailAndDateBetween(String clientEmail, LocalDate startDate, LocalDate endDate);*/
 
-    @Query("SELECT new org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.BalanceDTO(SUM(b.revenue), SUM(b.expenses), SUM(b.irpf), SUM(b.iva), b.clientEmail) FROM Balance b WHERE b.clientEmail = :clientEmail AND b.quarter = :quarter AND YEAR(b.date) = :year GROUP BY b.clientEmail")
+    @Query("SELECT new org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.BalanceDTO(SUM(b.income), SUM(b.expenses), SUM(b.irpf), SUM(b.iva), b.clientEmail) FROM Balance b WHERE b.clientEmail = :clientEmail AND b.quarter = :quarter AND YEAR(b.date) = :year GROUP BY b.clientEmail")
     BalanceDTO findByClientEmailAndQuarterAndYear(String clientEmail, String quarter, int year);
 
     @Transactional

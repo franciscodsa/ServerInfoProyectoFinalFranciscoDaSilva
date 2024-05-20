@@ -3,7 +3,6 @@ package org.example.serverinfoproyectofinalfranciscodasilva.data.modelo;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +18,7 @@ public class Balance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double revenue;
+    private Double income;
 
     private Double expenses;
 
