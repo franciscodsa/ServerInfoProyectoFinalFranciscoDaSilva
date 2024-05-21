@@ -54,17 +54,17 @@ public class FileDBController {
         }
     }
 
-    @GetMapping("/filesInfo")
+    @GetMapping("/info")
     public ResponseEntity<List<FilesDBInfoDTO>> getFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileDBServices.getFilesByClient(clientEmail));
     }
 
-    @GetMapping("/expensesFilesInfo")
+    @GetMapping("/expensesInfo")
     public ResponseEntity<List<FilesDBInfoDTO>> getExpensesFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileDBServices.getExpensesFilesByClient(clientEmail));
     }
 
-    @GetMapping("/incomeFilesInfo")
+    @GetMapping("/incomeInfo")
     public ResponseEntity<List<FilesDBInfoDTO>> getIncomeFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileDBServices.getIncomeFilesByClient(clientEmail));
     }
