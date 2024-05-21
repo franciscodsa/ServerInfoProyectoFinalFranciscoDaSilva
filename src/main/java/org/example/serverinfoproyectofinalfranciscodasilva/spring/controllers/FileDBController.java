@@ -47,7 +47,7 @@ public class FileDBController {
             // Agregar el encabezado Content-Disposition con el nombre del archivo
             String fileName = filesDB.getFileName(); // Reemplaza esto con el nombre del archivo real
             headers.setContentDispositionFormData("attachment", fileName);
-            // Retorna la respuesta sin establecer el encabezado Content-Disposition
+
             return new ResponseEntity<>(filesDB.getData(), headers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
