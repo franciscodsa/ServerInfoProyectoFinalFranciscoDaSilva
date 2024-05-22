@@ -1,0 +1,89 @@
+create table accountant
+(
+    email         varchar(255) not null
+        primary key,
+    date_of_birth date         null,
+    first_name    varchar(255) null,
+    last_name     varchar(255) null,
+    phone         varchar(255) null
+);
+
+create table clients
+(
+    email            varchar(255) not null
+        primary key,
+    date_of_birth    date         null,
+    first_name       varchar(255) null,
+    last_name        varchar(255) null,
+    phone            varchar(255) null,
+    accountant_email varchar(255) null,
+    constraint FK3slo1ltncwqihauec8mphl95i
+        foreign key (accountant_email) references accountant (email)
+);
+
+create table balance
+(
+    id           bigint auto_increment
+        primary key,
+    date         datetime(6)  null,
+    expenses     double       null,
+    irpf         double       null,
+    iva          double       null,
+    income       double       null,
+    client_email varchar(255) null,
+    quarter      varchar(255) null,
+    constraint FKpmyofn4bom1wg8u4ihthaf324
+        foreign key (client_email) references clients (email)
+);
+
+create table chats
+(
+    id               bigint       not null
+        primary key,
+    accountant_email varchar(255) null,
+    client_email     varchar(255) null,
+    constraint UK_r1k65yejqnyi4decijeerfijn
+        unique (client_email),
+    constraint FKbj808qmmb2x484c9mrtxuvci2
+        foreign key (accountant_email) references accountant (email),
+    constraint FKjbbvo60s8otf2mpgkjhyxewau
+        foreign key (client_email) references clients (email)
+);
+
+create table files
+(
+    id           bigint auto_increment
+        primary key,
+    data         longblob     null,
+    description  varchar(255) null,
+    file_name    varchar(255) null,
+    file_type    varchar(255) null,
+    client_email varchar(255) null,
+    invoice_type tinyint      null,
+    date         datetime(6)  null,
+    constraint FKl98ofvllo295p1r8oxt2dgbbm
+        foreign key (client_email) references clients (email),
+    check (`invoice_type` between 0 and 1)
+);
+
+create table messages
+(
+    id           bigint       not null
+        primary key,
+    content      varchar(255) null,
+    sending_date datetime(6)  null,
+    chat_id      bigint       null,
+    constraint FK64w44ngcpqp99ptcb9werdfmb
+        foreign key (chat_id) references chats (id)
+);
+
+create table user
+(
+    email         varchar(255) not null
+        primary key,
+    date_of_birth date         null,
+    first_name    varchar(255) null,
+    last_name     varchar(255) null,
+    phone         varchar(255) null
+);
+
