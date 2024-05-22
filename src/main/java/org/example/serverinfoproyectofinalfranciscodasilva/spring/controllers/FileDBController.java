@@ -1,6 +1,7 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Balance;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceType;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -24,7 +26,7 @@ public class FileDBController {
     private final FileDBServices fileDBServices;
 
 
-    @PostMapping("/upload")
+    /*@PostMapping("/upload")
     public ResponseEntity<AppMessage> uploadFile(
             @RequestParam("file") MultipartFile file,
             @RequestParam("description") String description,
@@ -33,7 +35,28 @@ public class FileDBController {
     ) {
         fileDBServices.store(file, description, clientEmail, invoiceType);
         return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Subido"));
+    }*/
+
+    @PostMapping("/upload")
+    public ResponseEntity<AppMessage> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("description") String description,
+            @RequestParam("clientEmail") String clientEmail,
+            @RequestParam("invoiceType") InvoiceType invoiceType,
+            @RequestParam("income") Double income,
+            @RequestParam("expenses") Double expenses,
+            @RequestParam("iva") Double iva
+    ) {
+        Balance balance = new Balance();
+        balance.setIncome(income);
+        balance.setExpenses(expenses);
+        balance.setIva(iva);
+        balance.setDate(LocalDateTime.now());
+
+        fileDBServices.store(file, description, clientEmail, invoiceType, balance);
+        return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Subido"));
     }
+
 
     @GetMapping("/download/{fileId}")
     public ResponseEntity<byte[]> getFile(@PathVariable Long fileId) {

@@ -32,6 +32,8 @@ public class Balance {
 
     @Column(name = "client_email")
     private String clientEmail;
- /*   @ManyToOne
-    private Client client;*/
+
+    @OneToOne
+    @JoinColumn(name = "file_id")
+    private FilesDB files;
 }

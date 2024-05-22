@@ -34,4 +34,7 @@ public class FilesDB {
     private String clientEmail;
 
     private InvoiceType invoiceType;
+
+    @OneToOne(mappedBy = "files")
+    private Balance balance;
 }
