@@ -27,15 +27,17 @@ public class BalanceController {
         return new ResponseEntity<>(balance, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete-quarter")
+/*    @DeleteMapping("/delete-quarter")
     public ResponseEntity<Void> deleteBalancesByClientIdAndYearAndQuarter(
             @RequestParam String clientEmail,
             @RequestParam int year,
             @RequestParam String quarter) {
-        balanceServices.deleteByClientIdAndYearAndQuarter(clientEmail, year, quarter);
+       *//* balanceServices.deleteByClientIdAndYearAndQuarter(clientEmail, year, quarter);*//*
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    }*/
 
+
+    //TODO: ESTO CREO QUE NO SERA NECESARIO
     @PostMapping()
     public ResponseEntity<AppMessage> addBalance(@RequestBody Balance balance){
         balanceServices.save(balance);

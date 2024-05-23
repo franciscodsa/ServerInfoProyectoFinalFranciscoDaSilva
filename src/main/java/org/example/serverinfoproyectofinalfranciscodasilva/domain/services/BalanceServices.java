@@ -43,12 +43,12 @@ public class BalanceServices {
         return result;
     }
 
-    public void deleteByClientIdAndYearAndQuarter(String clientEmail, int year, String quarter) {
-        /*LocalDate startDate = calculateStartDate(year, quarter);
-        LocalDate endDate = startDate.plusMonths(3).minusDays(1);*/
+    /*public void deleteByClientIdAndYearAndQuarter(String clientEmail, int year, String quarter) {
+        *//*LocalDate startDate = calculateStartDate(year, quarter);
+        LocalDate endDate = startDate.plusMonths(3).minusDays(1);*//*
         balanceRepository.deleteByClientEmailAndQuarterAndYear(clientEmail, quarter, year);
     }
-
+*/
 /*    private LocalDate calculateStartDate(int year, int quarter) {
         int month = (quarter - 1) * 3 + 1;
         return LocalDate.of(year, month, 1);

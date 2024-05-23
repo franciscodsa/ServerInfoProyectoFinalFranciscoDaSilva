@@ -112,11 +112,13 @@ public class FileDBServices {
         return fileDBRepository.getFilesInfoByInvoiceTypeAndClient(clientEmail, InvoiceType.INCOME);
     }
 
+    @Transactional
     public void deleteFile(Long fileId) {
         if (!fileDBRepository.existsById(fileId)) {
             throw new FilesException("Archivo no encontrado");
         }
 
+        balanceRepository.deleteByFilesId(fileId);
         fileDBRepository.deleteById(fileId);
     }
 

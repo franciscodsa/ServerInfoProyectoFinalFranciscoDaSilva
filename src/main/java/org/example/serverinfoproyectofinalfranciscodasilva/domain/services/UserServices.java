@@ -68,7 +68,9 @@ public class UserServices {
 
         // Delete client details if the user is a client
         clientRepository.findById(email).ifPresent(client -> {
-            balanceRepository.deleteAllByClientEmail(email);
+            filesRepository.getFilesInfoByClient(email).forEach(file -> balanceRepository.deleteByFilesId(file.getId()));
+
+/*            balanceRepository.deleteAllByClientEmail(email);*/
             filesRepository.deleteAllByClientEmail(email);
            /* chatsRepository.findByClientEmail(email).ifPresent(chat -> {
                 messagesRepository.deleteAllByChatId(chat.getId());
