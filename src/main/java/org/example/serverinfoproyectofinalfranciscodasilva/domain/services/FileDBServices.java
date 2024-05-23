@@ -80,8 +80,6 @@ public class FileDBServices {
             // Set the file reference in the balance
             balance.setFiles(filesDB);
             balance.setDate(LocalDateTime.now());
-            balance.setClientEmail(clientEmail);
-            balance.setDate(LocalDateTime.now());
             balance.setIrpf(calculateIrpf(balance.getIncome(),balance.getExpenses())); // Calcular IRPF antes de guardar
             balance.setQuarter(getCurrentQuarter());
 

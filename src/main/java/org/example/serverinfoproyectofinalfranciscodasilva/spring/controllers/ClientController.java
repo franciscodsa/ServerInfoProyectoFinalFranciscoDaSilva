@@ -38,6 +38,7 @@ public class ClientController {
         return clientServices.getClientsByAccountantEmail(accountantEmail);
     }
 
+    //todo: esto no va a hacer falta porque el detealle lo estoy cogiendo directo de la lista de clientes
     @GetMapping("/{clientEmail}")
     public Client getClientByEmail(@PathVariable String clientEmail) {
         return clientServices.getClientByEmail(clientEmail);

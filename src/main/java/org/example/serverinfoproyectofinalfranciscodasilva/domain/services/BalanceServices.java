@@ -17,34 +17,41 @@ public class BalanceServices {
 
     private final BalanceRepository balanceRepository;
 
-    public Balance save(Balance balance) {
+    public Balance update(Balance balance) {
+
+        Balance toUpdate = balanceRepository.findById(balance.getId()).orElseThrow(() -> new RuntimeException());
+
+        toUpdate.setIncome(balance.getIncome());
+        toUpdate.setExpenses(balance.getExpenses());
+        toUpdate.setIva(balance.getIva());
+        toUpdate.setDate(LocalDateTime.now());
+        toUpdate.setIrpf(calculateIrpf(balance.getIncome(), balance.getExpenses())); // Calcular IRPF antes de guardar
+        toUpdate.setQuarter(getCurrentQuarter());
 
       /*  Balance balanceToSave = new Balance();
         balanceToSave.setIrpf(calculateIrpf(balanceToSave.getRevenue(), balance.getExpenses()));
         balanceToSave.setIva(balance.getIva());
         balanceToSave.setDate(balance.getDate());*/
-       /* balanceToSave.setClient(clientRepository.findById(balance.getClientEmail()).get());*/
-        balance.setDate(LocalDateTime.now());
-        balance.setIrpf(calculateIrpf(balance.getIncome(),balance.getExpenses())); // Calcular IRPF antes de guardar
-        balance.setQuarter(getCurrentQuarter());
+            /* balanceToSave.setClient(clientRepository.findById(balance.getClientEmail()).get());*/
 
-        return balanceRepository.save(balance);
+
+        return balanceRepository.save(toUpdate);
     }
 
     public BalanceDTO findByClientIdAndYearAndQuarter(String clientEmail, int year, String quarter) {
         /*LocalDate startDate = calculateStartDate(year, quarter);
         LocalDate endDate = startDate.plusMonths(3).minusDays(1);*/
 
-         BalanceDTO result = balanceRepository.findByClientEmailAndQuarterAndYear(clientEmail, quarter, year);
-         if (result== null){
-             result = new BalanceDTO(0.0, 0.0, 0.0, 0.0, clientEmail);
-         }
+        BalanceDTO result = balanceRepository.findByClientEmailAndQuarterAndYear(clientEmail, quarter, year);
+        if (result == null) {
+            result = new BalanceDTO(0.0, 0.0, 0.0, 0.0, clientEmail);
+        }
 
         return result;
     }
 
     /*public void deleteByClientIdAndYearAndQuarter(String clientEmail, int year, String quarter) {
-        *//*LocalDate startDate = calculateStartDate(year, quarter);
+     *//*LocalDate startDate = calculateStartDate(year, quarter);
         LocalDate endDate = startDate.plusMonths(3).minusDays(1);*//*
         balanceRepository.deleteByClientEmailAndQuarterAndYear(clientEmail, quarter, year);
     }

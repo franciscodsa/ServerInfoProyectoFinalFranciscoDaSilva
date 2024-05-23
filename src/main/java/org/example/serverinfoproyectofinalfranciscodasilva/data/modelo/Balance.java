@@ -30,9 +30,6 @@ public class Balance {
 
     private String quarter;
 
-    @Column(name = "client_email")
-    private String clientEmail;
-
     @OneToOne
     @JoinColumn(name = "file_id")
     private FilesDB files;
