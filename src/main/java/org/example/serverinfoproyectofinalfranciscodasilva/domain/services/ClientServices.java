@@ -54,7 +54,7 @@ public class ClientServices {
     @Transactional
     public Client updateClient(Client updatedClient) {
 
-        if (!userRepository.existsById(updatedClient.getAccountantEmail())){
+        if (updatedClient.getAccountantEmail() != null && !userRepository.existsById(updatedClient.getAccountantEmail())) {
             throw new UsersException("Contador inexistente");
         }
 
