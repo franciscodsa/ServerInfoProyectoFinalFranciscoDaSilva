@@ -1,5 +1,6 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Balance;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
@@ -76,7 +77,7 @@ public class FileDBController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+ /*   @RolesAllowed({"user", "accountant"})*/
     @GetMapping("/info")
     public ResponseEntity<List<FilesDBInfoDTO>> getFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileDBServices.getFilesByClient(clientEmail));

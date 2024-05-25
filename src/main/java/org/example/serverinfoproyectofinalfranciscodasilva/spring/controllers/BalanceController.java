@@ -1,5 +1,6 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Balance;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
@@ -16,6 +17,8 @@ public class BalanceController {
 
     private final BalanceServices balanceServices;
 
+
+    /*@RolesAllowed({"user", "accountant"})*/
     @GetMapping("/quarter")
     public ResponseEntity<BalanceDTO> getBalancesByClientIdAndYearAndQuarter(
             @RequestParam String clientEmail,

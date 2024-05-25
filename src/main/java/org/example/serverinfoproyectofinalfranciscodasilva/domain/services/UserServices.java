@@ -50,7 +50,7 @@ public class UserServices {
         }
 
 
-        // Delete accountant details if the user is an accountant
+        // Elimina al contador y coloca en null el accountantEmail de sus clientes para que puedan ser reasignados a otro contador
         accountantRepository.findById(email).ifPresent(accountant -> {
          /*   chatsRepository.findByAccountantEmail(email).ifPresent(chat -> {
                 messagesRepository.deleteAllByChatId(chat.getId());
@@ -66,11 +66,10 @@ public class UserServices {
         });
 
 
-        // Delete client details if the user is a client
+        // Elimina al cliente junto a sus archivos y balances
         clientRepository.findById(email).ifPresent(client -> {
             filesRepository.getFilesInfoByClient(email).forEach(file -> balanceRepository.deleteByFilesId(file.getId()));
 
-/*            balanceRepository.deleteAllByClientEmail(email);*/
             filesRepository.deleteAllByClientEmail(email);
            /* chatsRepository.findByClientEmail(email).ifPresent(chat -> {
                 messagesRepository.deleteAllByChatId(chat.getId());
