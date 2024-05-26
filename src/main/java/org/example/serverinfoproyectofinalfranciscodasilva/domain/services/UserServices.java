@@ -2,14 +2,12 @@ package org.example.serverinfoproyectofinalfranciscodasilva.domain.services;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Client;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.User;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.*;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -57,10 +55,10 @@ public class UserServices {
                 chatsRepository.delete(chat);
             });*/
 
-           clientRepository.findAllByAccountantEmail(email).forEach(client -> {
-               client.setAccountantEmail(null);
-               clientRepository.save(client);
-           });
+            clientRepository.findAllByAccountantEmail(email).forEach(client -> {
+                client.setAccountantEmail(null);
+                clientRepository.save(client);
+            });
 
             accountantRepository.delete(accountant);
         });
@@ -81,4 +79,30 @@ public class UserServices {
         // Finally, delete the user
         userRepository.deleteById(email);
     }
+
+    public void updateUser(User userDetails) {
+        if (!userRepository.existsById(userDetails.getEmail())) {
+            throw new UsersException("Usuario inexistente");
+        }
+
+        clientRepository.findById(userDetails.getEmail()).ifPresent(client -> {
+            client.setPhone(userDetails.getPhone());
+            client.setFirstName(userDetails.getFirstName());
+            client.setLastName(userDetails.getLastName());
+            client.setDateOfBirth(userDetails.getDateOfBirth());
+
+            clientRepository.save(client);
+        });
+
+
+        accountantRepository.findById(userDetails.getEmail()).ifPresent(accountant -> {
+            accountant.setPhone(userDetails.getPhone());
+            accountant.setFirstName(userDetails.getFirstName());
+            accountant.setLastName(userDetails.getLastName());
+            accountant.setDateOfBirth(userDetails.getDateOfBirth());
+
+            accountantRepository.save(accountant);
+        });
+    }
+
 }

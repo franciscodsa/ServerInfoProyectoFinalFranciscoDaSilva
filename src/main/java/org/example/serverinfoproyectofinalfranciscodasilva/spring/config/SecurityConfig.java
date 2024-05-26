@@ -24,12 +24,12 @@ public class SecurityConfig {
 
     private final JwtTokenFilter jwtTokenFilter;
 
-    @Bean  //todo descomenta las lineas para activar la autenticacion
+    /*@Bean  //todo descomenta las lineas para activar la autenticacion
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-               /* .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class).build();*/
+               *//* .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class).build();*//*
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/upload").permitAll()
@@ -41,5 +41,26 @@ public class SecurityConfig {
                                 .requestMatchers("/files/**").permitAll()
                                 .anyRequest().authenticated()
                 ).build();
+    }*/
+
+    //todo quita los paths que si deban autentificarse
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize ->
+                        authorize
+                                .requestMatchers("/upload").permitAll()
+                                .requestMatchers("/download/**").permitAll()
+                                .requestMatchers("/users/**").permitAll()
+                                .requestMatchers("/clients/**").permitAll()
+                                .requestMatchers("/accountant/**").permitAll()
+                                .requestMatchers("/balances/**").permitAll()
+                                .requestMatchers("/files/**").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 }

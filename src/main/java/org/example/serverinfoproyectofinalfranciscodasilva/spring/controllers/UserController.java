@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.User;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.UserServices;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,9 +17,18 @@ public class UserController {
     private final UserServices userServices;
 
     @PostMapping()
-    public User saveUser(@RequestBody User user){
+    public User saveUser(@RequestBody User user) {
         return userServices.addUser(user);
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<AppMessage> updateUser(@RequestBody User userDetails) {
+        userServices.updateUser(userDetails);
+
+        return ResponseEntity.ok(new AppMessage("Actualizado"));
+
+    }
+
     @GetMapping()
     public List<User> getAllUsers() {
         return userServices.getAllUsers();

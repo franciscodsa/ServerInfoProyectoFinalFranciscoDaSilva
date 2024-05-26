@@ -37,6 +37,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain)
             throws ServletException, IOException {
+
+        // Verificar si la URI de la solicitud está en las rutas permitidas
+        //todo quita los paths que si deban autentificarse
+        String path = request.getRequestURI();
+        if (path.startsWith("/upload") || path.startsWith("/download") ||
+                path.startsWith("/users") || path.startsWith("/clients") ||
+                path.startsWith("/accountant") || path.startsWith("/balances") ||
+                path.startsWith("/files")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+
         try {
             // Get authorization header and validate
             final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
