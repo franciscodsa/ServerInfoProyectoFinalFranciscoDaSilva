@@ -99,6 +99,7 @@ public class FileDBServices {
     }
 
     public List<FilesDBInfoDTO> getFilesByClient(String clientEmail) {
+        final List<FilesDBInfoDTO> filesInfoByClient = fileDBRepository.getFilesInfoByClient(clientEmail);
         return fileDBRepository.getFilesInfoByClient(clientEmail);
     }
 

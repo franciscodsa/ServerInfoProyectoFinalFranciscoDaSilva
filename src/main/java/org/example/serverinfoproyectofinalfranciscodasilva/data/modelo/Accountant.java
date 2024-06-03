@@ -14,10 +14,5 @@ import java.util.List;
 @Table(name = "accountant")
 public class Accountant extends User {
 
-    /*//todo ver si se puede quitar y en su lugar tener un joincolum en client nada mas
-    @OneToMany(mappedBy = "accountant")
-    private List<Client> clientList;
 
-    @OneToMany(mappedBy = "accountant")
-    private List<Chat> chatList;*/
 }

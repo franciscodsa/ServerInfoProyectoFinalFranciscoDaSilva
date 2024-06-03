@@ -43,9 +43,15 @@ public class AccountantController {
         return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Accountant deleted successfully"));
     }
 
+    //todo creo que no se necesitara
     @PostMapping("/update")
     public ResponseEntity<Accountant> updateAccountant(@RequestBody Accountant accountant) {
         return ResponseEntity.ok(accountantServices.updateAccountant(accountant));
     }
 
+
+    @GetMapping("/byClientEmail")
+    public ResponseEntity<Accountant> getAccountantByClientEmail(@RequestParam String clientEmail) {
+        return ResponseEntity.ok(accountantServices.getAccountantByClientEmail(clientEmail));
+    }
 }
