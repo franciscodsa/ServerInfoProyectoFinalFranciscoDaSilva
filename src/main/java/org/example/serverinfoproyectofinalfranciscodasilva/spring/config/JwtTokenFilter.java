@@ -39,12 +39,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         // Verificar si la URI de la solicitud está en las rutas permitidas
-        //todo quita los paths que si deban autentificarse
+        //todo esto creo que no te hara falta para nada
         String path = request.getRequestURI();
-        if (path.startsWith("/upload") || path.startsWith("/download") ||
-                path.startsWith("/users") || path.startsWith("/clients") ||
-                path.startsWith("/accountant") || path.startsWith("/balances") ||
-                path.startsWith("/files")) {
+        if (path.contains("8")) {
             chain.doFilter(request, response);
             return;
         }

@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.example.serverinfoproyectofinalfranciscodasilva.common.ConstantesRoles.*;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/balances")
@@ -18,7 +20,7 @@ public class BalanceController {
     private final BalanceServices balanceServices;
 
 
-    /*@RolesAllowed({"user", "accountant"})*/
+    @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("/quarter")
     public ResponseEntity<BalanceDTO> getBalancesByClientIdAndYearAndQuarter(
             @RequestParam String clientEmail,
@@ -28,6 +30,7 @@ public class BalanceController {
         return new ResponseEntity<>(balance, HttpStatus.OK);
     }
 
+    @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @PostMapping("/update")
     public ResponseEntity<AppMessage> updateBalance(@RequestBody Balance balance){
         balanceServices.update(balance);

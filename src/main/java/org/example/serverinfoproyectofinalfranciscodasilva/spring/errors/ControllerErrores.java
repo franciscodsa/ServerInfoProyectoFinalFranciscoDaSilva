@@ -1,11 +1,13 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.errors;
 
+import org.example.serverinfoproyectofinalfranciscodasilva.common.Constantes;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.PublicKeyException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -31,5 +33,10 @@ public class ControllerErrores extends ResponseEntityExceptionHandler {
     public ResponseEntity<AppMessage> handleKeyException(FilesException e){
         AppMessage appMessage = new AppMessage(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appMessage);
+    }
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<AppMessage> handleKeyException(AccessDeniedException e){
+        AppMessage appMessage = new AppMessage(Constantes.NO_TIENE_ROL_PERMITIDO);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(appMessage);
     }
 }
