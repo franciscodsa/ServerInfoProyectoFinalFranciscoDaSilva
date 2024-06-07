@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.example.serverinfoproyectofinalfranciscodasilva.common.ConstantesRoles.*;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/files")
@@ -38,6 +40,7 @@ public class FileDBController {
         return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Subido"));
     }*/
 
+    @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @PostMapping("/upload")
     public ResponseEntity<AppMessage> uploadFile(
             @RequestParam("file") MultipartFile file,
@@ -59,6 +62,7 @@ public class FileDBController {
     }
 
 
+    @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("/download/{fileId}")
     public ResponseEntity<byte[]> getFile(@PathVariable Long fileId) {
         FilesDB filesDB = fileDBServices.getFile(fileId);
@@ -77,22 +81,25 @@ public class FileDBController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
- /*   @RolesAllowed({"user", "accountant"})*/
+    @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("/info")
     public ResponseEntity<List<FilesDBInfoDTO>> getFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileDBServices.getFilesByClient(clientEmail));
     }
 
+    @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("/expensesInfo")
     public ResponseEntity<List<FilesDBInfoDTO>> getExpensesFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileDBServices.getExpensesFilesByClient(clientEmail));
     }
 
+    @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("/incomeInfo")
     public ResponseEntity<List<FilesDBInfoDTO>> getIncomeFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileDBServices.getIncomeFilesByClient(clientEmail));
     }
 
+    @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT})
     @DeleteMapping("/delete/{fileId}")
     public ResponseEntity<AppMessage> deleteFile(@PathVariable Long fileId) {
         fileDBServices.deleteFile(fileId);
