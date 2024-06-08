@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @Table(name = "files")
-public class FilesDB {
+public class File {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

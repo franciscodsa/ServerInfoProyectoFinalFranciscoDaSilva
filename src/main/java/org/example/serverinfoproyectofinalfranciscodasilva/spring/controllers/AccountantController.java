@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.example.serverinfoproyectofinalfranciscodasilva.common.ConstantesRoles.*;
+import static org.example.serverinfoproyectofinalfranciscodasilva.spring.common.ConstantesRoles.*;
 
 @RestController
 @AllArgsConstructor
@@ -27,13 +27,6 @@ public class AccountantController {
         return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Contador agregado"));
     }
 
-   /* @GetMapping("/{email}")
-    public ResponseEntity<Accountant> getAccountantByEmail(@PathVariable String email) {
-        Accountant accountant = accountantServices.getByEmail(email);
-        return ResponseEntity.status(HttpStatus.OK).body(accountant);
-    }*/
-
-
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping()
     public ResponseEntity<List<Accountant>> getAllAccountants() {
@@ -41,21 +34,6 @@ public class AccountantController {
         return ResponseEntity.status(HttpStatus.OK).body(accountants);
     }
 
-    /*  //todo: esto no va a hacer falta porque se eliminaran con el endpoint de users
-      @DeleteMapping("/delete/{email}")
-      public ResponseEntity<AppMessage> deleteAccountant(@PathVariable String email) {
-          accountantServices.deleteByEmail(email);
-          return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Accountant deleted successfully"));
-      }
-  */
-/*
-    //todo creo que no se necesitara
-    @PostMapping("/update")
-    public ResponseEntity<Accountant> updateAccountant(@RequestBody Accountant accountant) {
-        return ResponseEntity.ok(accountantServices.updateAccountant(accountant));
-    }
-
-*/
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("/byClientEmail")
     public ResponseEntity<Accountant> getAccountantByClientEmail(@RequestParam String clientEmail) {

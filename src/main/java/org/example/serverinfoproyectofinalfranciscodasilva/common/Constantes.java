@@ -1,8 +1,6 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.common;
 
 public class Constantes {
-
-
     public static final String BEARER = "Bearer ";
     public static final String TOKEN_CADUCADO = "Token caducado";
     public static final String ROLES = "roles";

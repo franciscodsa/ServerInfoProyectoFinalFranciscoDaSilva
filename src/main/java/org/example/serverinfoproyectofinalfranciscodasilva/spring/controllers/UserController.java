@@ -8,7 +8,7 @@ import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.UserS
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.example.serverinfoproyectofinalfranciscodasilva.common.ConstantesRoles.*;
+import static org.example.serverinfoproyectofinalfranciscodasilva.spring.common.ConstantesRoles.*;
 
 @RequiredArgsConstructor
 @RestController

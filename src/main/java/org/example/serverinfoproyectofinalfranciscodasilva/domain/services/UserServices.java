@@ -18,7 +18,7 @@ public class UserServices {
 
     private final AccountantRepository accountantRepository;
     private final ClientRepository clientRepository;
-    private final FileDBRepository filesRepository;
+    private final FileRepository filesRepository;
     private final BalanceRepository balanceRepository;
 /*    private final ChatsRepository chatsRepository;
     private final MessagesRepository messagesRepository;*/

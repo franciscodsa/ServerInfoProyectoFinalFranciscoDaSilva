@@ -2,11 +2,11 @@ package org.example.serverinfoproyectofinalfranciscodasilva.domain.services;
 
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Balance;
-import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.FilesDB;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.File;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceType;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.BalanceRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.ClientRepository;
-import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.FileDBRepository;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.FileRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO;
@@ -22,9 +22,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FileDBServices {
+public class FileServices {
 
-    private final FileDBRepository fileDBRepository;
+    private final FileRepository fileRepository;
     private final BalanceRepository balanceRepository;
     private final ClientRepository clientRepository;
 
@@ -57,7 +57,7 @@ public class FileDBServices {
     }*/
 
     @Transactional
-    public FilesDB store(MultipartFile file, String description, String clientEmail, InvoiceType invoiceType, Balance balance) {
+    public File store(MultipartFile file, String description, String clientEmail, InvoiceType invoiceType, Balance balance) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
@@ -65,7 +65,7 @@ public class FileDBServices {
                 throw new UsersException("No existe cliente, verifique email: " + clientEmail);
             }
 
-            FilesDB filesDB = new FilesDB();
+            File filesDB = new File();
             filesDB.setFileName(fileName);
             filesDB.setFileType(file.getContentType());
             filesDB.setData(file.getBytes());
@@ -75,7 +75,7 @@ public class FileDBServices {
             filesDB.setDate(LocalDateTime.now());
 
             // Save file information
-            filesDB = fileDBRepository.save(filesDB);
+            filesDB = fileRepository.save(filesDB);
 
             // Set the file reference in the balance
             balance.setFiles(filesDB);
@@ -94,31 +94,31 @@ public class FileDBServices {
 
 
     //todo modificar para sar el optional y enviar excepcion en caso de error
-    public FilesDB getFile(Long id) {
-        return fileDBRepository.findById(id).get();
+    public File getFile(Long id) {
+        return fileRepository.findById(id).get();
     }
 
     public List<FilesDBInfoDTO> getFilesByClient(String clientEmail) {
-        final List<FilesDBInfoDTO> filesInfoByClient = fileDBRepository.getFilesInfoByClient(clientEmail);
-        return fileDBRepository.getFilesInfoByClient(clientEmail);
+        final List<FilesDBInfoDTO> filesInfoByClient = fileRepository.getFilesInfoByClient(clientEmail);
+        return fileRepository.getFilesInfoByClient(clientEmail);
     }
 
     public List<FilesDBInfoDTO> getExpensesFilesByClient(String clientEmail) {
-        return fileDBRepository.getFilesInfoByInvoiceTypeAndClient(clientEmail, InvoiceType.EXPENSE);
+        return fileRepository.getFilesInfoByInvoiceTypeAndClient(clientEmail, InvoiceType.EXPENSE);
     }
 
     public List<FilesDBInfoDTO> getIncomeFilesByClient(String clientEmail) {
-        return fileDBRepository.getFilesInfoByInvoiceTypeAndClient(clientEmail, InvoiceType.INCOME);
+        return fileRepository.getFilesInfoByInvoiceTypeAndClient(clientEmail, InvoiceType.INCOME);
     }
 
     @Transactional
     public void deleteFile(Long fileId) {
-        if (!fileDBRepository.existsById(fileId)) {
+        if (!fileRepository.existsById(fileId)) {
             throw new FilesException("Archivo no encontrado");
         }
 
         balanceRepository.deleteByFilesId(fileId);
-        fileDBRepository.deleteById(fileId);
+        fileRepository.deleteById(fileId);
     }
 
     private double calculateIrpf(double revenue, double expenses) {

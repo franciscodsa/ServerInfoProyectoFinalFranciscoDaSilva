@@ -32,5 +32,5 @@ public class Balance {
 
     @OneToOne
     @JoinColumn(name = "file_id")
-    private FilesDB files;
+    private File files;
 }
