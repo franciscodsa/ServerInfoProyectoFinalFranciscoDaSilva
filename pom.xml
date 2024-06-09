@@ -119,6 +119,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>contaeasy_info_api</finalName>
     </build>
 
 </project>
