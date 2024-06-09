@@ -1,6 +1,7 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.errors;
 
 import org.example.serverinfoproyectofinalfranciscodasilva.common.Constantes;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.BalanceException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.PublicKeyException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
@@ -31,6 +32,12 @@ public class ControllerErrores extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(FilesException.class)
     public ResponseEntity<AppMessage> handleKeyException(FilesException e) {
+        AppMessage appMessage = new AppMessage(e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appMessage);
+    }
+
+    @ExceptionHandler(BalanceException.class)
+    public ResponseEntity<AppMessage> handleKeyException(BalanceException e) {
         AppMessage appMessage = new AppMessage(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appMessage);
     }

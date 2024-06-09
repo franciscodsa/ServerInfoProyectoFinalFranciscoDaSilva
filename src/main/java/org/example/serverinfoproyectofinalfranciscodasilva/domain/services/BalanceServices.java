@@ -3,7 +3,8 @@ package org.example.serverinfoproyectofinalfranciscodasilva.domain.services;
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Balance;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.BalanceRepository;
-import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.ClientRepository;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.common.ConstantesServices;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.BalanceException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.BalanceDTO;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,12 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class BalanceServices {
-    private final ClientRepository clientRepository;
 
     private final BalanceRepository balanceRepository;
 
     public Balance update(Balance balance) {
 
-        Balance toUpdate = balanceRepository.findById(balance.getId()).orElseThrow(() -> new RuntimeException());
+        Balance toUpdate = balanceRepository.findById(balance.getId()).orElseThrow(() -> new BalanceException(ConstantesServices.BALANCE_INEXISTENTE));
 
         toUpdate.setIncome(balance.getIncome());
         toUpdate.setExpenses(balance.getExpenses());

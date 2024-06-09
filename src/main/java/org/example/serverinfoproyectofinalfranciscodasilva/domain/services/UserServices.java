@@ -4,34 +4,22 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.User;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.*;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.common.ConstantesServices;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserServices {
 
-
     private final UserRepository userRepository;
-
     private final AccountantRepository accountantRepository;
     private final ClientRepository clientRepository;
     private final FileRepository filesRepository;
     private final BalanceRepository balanceRepository;
 
-    public User addUser(User user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new UsersException("Ya existe un usuario con este email");
-        }
-
-        return userRepository.save(user);
-    }
-
-
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UsersException("Usuario inexistente"));
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsersException(ConstantesServices.USUARIO_INEXISTENTE));
 
     }
 
@@ -39,7 +27,7 @@ public class UserServices {
     public void deleteUser(String email) {
 
         if (!userRepository.existsById(email)) {
-            throw new UsersException("Usuario inexistente");
+            throw new UsersException(ConstantesServices.USUARIO_INEXISTENTE);
         }
 
 
@@ -69,7 +57,7 @@ public class UserServices {
 
     public void updateUser(User userDetails) {
         if (!userRepository.existsById(userDetails.getEmail())) {
-            throw new UsersException("Usuario inexistente");
+            throw new UsersException(ConstantesServices.USUARIO_INEXISTENTE);
         }
 
         clientRepository.findById(userDetails.getEmail()).ifPresent(client -> {

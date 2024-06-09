@@ -2,6 +2,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.data.modelo;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.ConstantesData;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@Table(name = "balance")
+@Table(name = ConstantesData.BALANCE)
 public class Balance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,6 @@ public class Balance {
     private String quarter;
 
     @OneToOne
-    @JoinColumn(name = "file_id")
+    @JoinColumn(name = ConstantesData.FILE_ID)
     private File files;
 }

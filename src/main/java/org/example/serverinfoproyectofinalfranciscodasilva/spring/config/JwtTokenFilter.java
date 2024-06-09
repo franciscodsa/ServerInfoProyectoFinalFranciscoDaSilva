@@ -40,7 +40,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 
         String path = request.getRequestURI();
-        if (path.contains("/addClient")) {
+        if (path.contains(org.example.serverinfoproyectofinalfranciscodasilva.spring.common.Constantes.ADD_CLIENT_PATH)) {
             chain.doFilter(request, response);
             return;
         }

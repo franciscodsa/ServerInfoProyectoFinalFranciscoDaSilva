@@ -2,6 +2,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.data.modelo;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.ConstantesData;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@Table(name = "files")
+@Table(name = ConstantesData.FILES)
 public class File {
 
     @Id
@@ -25,17 +26,17 @@ public class File {
     private LocalDateTime date;
 
     @Lob
-    @Column(columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = ConstantesData.LONGBLOB)
     private byte[] data;
 
     private String description;
 
-    @Column(name = "client_email")
+    @Column(name = ConstantesData.CLIENT_EMAIL)
     private String clientEmail;
 
     private InvoiceType invoiceType;
 
-    @OneToOne(mappedBy = "files")
+    @OneToOne(mappedBy = ConstantesData.FILES)
     private Balance balance;
 
 }

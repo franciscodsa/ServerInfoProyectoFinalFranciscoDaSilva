@@ -2,6 +2,7 @@ package org.example.serverinfoproyectofinalfranciscodasilva.spring.config;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.serverinfoproyectofinalfranciscodasilva.spring.common.Constantes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -31,7 +32,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/addClient").permitAll()
+                                .requestMatchers(Constantes.ADD_CLIENT_PATH).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)

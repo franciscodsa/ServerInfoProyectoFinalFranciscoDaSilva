@@ -7,6 +7,7 @@ import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceTy
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.BalanceRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.ClientRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.FileRepository;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.common.ConstantesServices;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FileInfoDTO;
@@ -34,7 +35,7 @@ public class FileServices {
 
         try {
             if (!clientRepository.existsById(clientEmail)) {
-                throw new UsersException("No existe cliente, verifique email: " + clientEmail);
+                throw new UsersException(ConstantesServices.NO_EXISTE_CLIENTE_VERIFIQUE_EMAIL + clientEmail);
             }
 
             File filesDB = new File();
@@ -60,7 +61,7 @@ public class FileServices {
 
             return filesDB;
         } catch (IOException e) {
-            throw new FilesException("Error guardando factura");
+            throw new FilesException(ConstantesServices.ERROR_GUARDANDO_FACTURA);
         }
     }
 
@@ -83,7 +84,7 @@ public class FileServices {
     @Transactional
     public void deleteFile(Long fileId) {
         if (!fileRepository.existsById(fileId)) {
-            throw new FilesException("Archivo no encontrado");
+            throw new FilesException(ConstantesServices.ARCHIVO_NO_ENCONTRADO);
         }
 
         balanceRepository.deleteByFilesId(fileId);

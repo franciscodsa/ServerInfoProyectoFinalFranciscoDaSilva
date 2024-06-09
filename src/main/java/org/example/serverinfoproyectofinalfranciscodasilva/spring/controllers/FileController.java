@@ -8,6 +8,7 @@ import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceTy
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FileInfoDTO;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.FileServices;
+import org.example.serverinfoproyectofinalfranciscodasilva.spring.common.Constantes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,33 +24,21 @@ import static org.example.serverinfoproyectofinalfranciscodasilva.spring.common.
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/files")
+@RequestMapping(Constantes.FILES_PATH)
 public class FileController {
 
     private final FileServices fileServices;
 
-
-    /*@PostMapping("/upload")
-    public ResponseEntity<AppMessage> uploadFile(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("description") String description,
-            @RequestParam("clientEmail") String clientEmail,
-            @RequestParam("invoiceType") InvoiceType invoiceType
-    ) {
-        fileDBServices.store(file, description, clientEmail, invoiceType);
-        return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Subido"));
-    }*/
-
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
-    @PostMapping("/upload")
+    @PostMapping(Constantes.UPLOAD_FILES_PATH)
     public ResponseEntity<AppMessage> uploadFile(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("description") String description,
-            @RequestParam("clientEmail") String clientEmail,
-            @RequestParam("invoiceType") InvoiceType invoiceType,
-            @RequestParam("income") Double income,
-            @RequestParam("expenses") Double expenses,
-            @RequestParam("iva") Double iva
+            @RequestParam(Constantes.FILE_PARAM) MultipartFile file,
+            @RequestParam(Constantes.DESCRIPTION_PARAM) String description,
+            @RequestParam(Constantes.CLIENT_EMAIL_PARAM) String clientEmail,
+            @RequestParam(Constantes.INVOICE_TYPE_PARAM) InvoiceType invoiceType,
+            @RequestParam(Constantes.INCOME_PARAM) Double income,
+            @RequestParam(Constantes.EXPENSES_PARAM) Double expenses,
+            @RequestParam(Constantes.IVA_PARAM) Double iva
     ) {
         Balance balance = new Balance();
         balance.setIncome(income);
@@ -58,12 +47,12 @@ public class FileController {
         balance.setDate(LocalDateTime.now());
 
         fileServices.store(file, description, clientEmail, invoiceType, balance);
-        return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Subido"));
+        return ResponseEntity.status(HttpStatus.OK).body(new AppMessage(Constantes.SUBIDO));
     }
 
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
-    @GetMapping("/download/{fileId}")
+    @GetMapping(Constantes.DOWNLOAD_BY_FILE_ID_PATH)
     public ResponseEntity<byte[]> getFile(@PathVariable Long fileId) {
         File file = fileServices.getFile(fileId);
 
@@ -83,28 +72,28 @@ public class FileController {
     }
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
-    @GetMapping("/info")
+    @GetMapping(Constantes.FILES_INFO_PATH)
     public ResponseEntity<List<FileInfoDTO>> getFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileServices.getFilesByClient(clientEmail));
     }
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
-    @GetMapping("/expensesInfo")
+    @GetMapping(Constantes.EXPENSES_FILES_INFO_PATH)
     public ResponseEntity<List<FileInfoDTO>> getExpensesFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileServices.getExpensesFilesByClient(clientEmail));
     }
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
-    @GetMapping("/incomeInfo")
+    @GetMapping(Constantes.INCOME_FILES_INFO_PATH)
     public ResponseEntity<List<FileInfoDTO>> getIncomeFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileServices.getIncomeFilesByClient(clientEmail));
     }
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT})
-    @DeleteMapping("/delete/{fileId}")
+    @DeleteMapping(Constantes.DELETE_FILE_BY_ID_PATH)
     public ResponseEntity<AppMessage> deleteFile(@PathVariable Long fileId) {
         fileServices.deleteFile(fileId);
-        return ResponseEntity.status(HttpStatus.OK).body(new AppMessage("Eliminado"));
+        return ResponseEntity.status(HttpStatus.OK).body(new AppMessage(Constantes.ELIMINADO));
     }
 
 }

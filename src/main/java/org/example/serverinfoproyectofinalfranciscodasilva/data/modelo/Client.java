@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.example.serverinfoproyectofinalfranciscodasilva.data.ConstantesData;
 
 @Entity
 @Getter
@@ -12,10 +13,10 @@ import lombok.*;
 @NoArgsConstructor
 @Builder(builderMethodName = "clientBuilder")
 @AllArgsConstructor
-@Table(name = "clients")
+@Table(name = ConstantesData.CLIENTS)
 public class Client extends User {
 
-    @Column(name = "accountant_email", nullable = true)
+    @Column(name = ConstantesData.ACCOUNTANT_EMAIL, nullable = true)
     private String accountantEmail;
 
 
