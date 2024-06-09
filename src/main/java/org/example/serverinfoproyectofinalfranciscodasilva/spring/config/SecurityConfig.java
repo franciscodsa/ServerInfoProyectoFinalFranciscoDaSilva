@@ -24,7 +24,6 @@ public class SecurityConfig {
 
     private final JwtTokenFilter jwtTokenFilter;
 
-    //todo quita los paths que si deban autentificarse
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http

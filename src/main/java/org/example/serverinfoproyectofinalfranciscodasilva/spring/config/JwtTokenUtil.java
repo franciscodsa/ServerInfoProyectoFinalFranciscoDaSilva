@@ -1,7 +1,6 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.config;
 
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -35,13 +34,13 @@ public class JwtTokenUtil {
 
     //Hago throw porque es necesario para poder enviar la excepcion de token caducado en el filter
     public boolean validate(String token) throws ExpiredJwtException, SignatureException {
-            Jws<Claims> claimsJws = Jwts.parserBuilder()
-                    .setSigningKey(getPublicKey())
-                    .build()
-                    .parseClaimsJws(token);
+        Jws<Claims> claimsJws = Jwts.parserBuilder()
+                .setSigningKey(getPublicKey())
+                .build()
+                .parseClaimsJws(token);
 
-            long expirationMillis = claimsJws.getBody().getExpiration().getTime();
-            return System.currentTimeMillis() < expirationMillis;
+        long expirationMillis = claimsJws.getBody().getExpiration().getTime();
+        return System.currentTimeMillis() < expirationMillis;
     }
 
     public String getUsername(String token) {

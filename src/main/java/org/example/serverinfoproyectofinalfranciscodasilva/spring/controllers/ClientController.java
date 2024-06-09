@@ -1,6 +1,5 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.controllers;
 
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Client;
@@ -8,11 +7,15 @@ import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessa
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.ClientServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static org.example.serverinfoproyectofinalfranciscodasilva.spring.common.ConstantesRoles.*;
+import static org.example.serverinfoproyectofinalfranciscodasilva.spring.common.ConstantesRoles.ROLE_ACCOUNTANT;
+import static org.example.serverinfoproyectofinalfranciscodasilva.spring.common.ConstantesRoles.ROLE_ADMIN;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,13 +44,13 @@ public class ClientController {
 
     @RolesAllowed({ROLE_ADMIN})
     @GetMapping("/clients/noAccountant")
-    public List<Client> getClientsWithNoAccountant(){
+    public List<Client> getClientsWithNoAccountant() {
         return clientServices.getClientsWithNoAccountant();
     }
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT})
     @GetMapping("/clients/byAccountant")
-    public List<Client> getClientsByAccountantEmail(String accountantEmail){
+    public List<Client> getClientsByAccountantEmail(String accountantEmail) {
         return clientServices.getClientsByAccountantEmail(accountantEmail);
     }
 

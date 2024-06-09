@@ -6,7 +6,7 @@ import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.Balance;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.File;
 import org.example.serverinfoproyectofinalfranciscodasilva.data.modelo.InvoiceType;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
-import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FileInfoDTO;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.services.FileServices;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -81,21 +81,22 @@ public class FileController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("/info")
-    public ResponseEntity<List<FilesDBInfoDTO>> getFilesByClient(@RequestParam String clientEmail) {
+    public ResponseEntity<List<FileInfoDTO>> getFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileServices.getFilesByClient(clientEmail));
     }
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("/expensesInfo")
-    public ResponseEntity<List<FilesDBInfoDTO>> getExpensesFilesByClient(@RequestParam String clientEmail) {
+    public ResponseEntity<List<FileInfoDTO>> getExpensesFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileServices.getExpensesFilesByClient(clientEmail));
     }
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("/incomeInfo")
-    public ResponseEntity<List<FilesDBInfoDTO>> getIncomeFilesByClient(@RequestParam String clientEmail) {
+    public ResponseEntity<List<FileInfoDTO>> getIncomeFilesByClient(@RequestParam String clientEmail) {
         return ResponseEntity.ok(fileServices.getIncomeFilesByClient(clientEmail));
     }
 

@@ -32,7 +32,7 @@ public class BalanceController {
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @PostMapping("/update")
-    public ResponseEntity<AppMessage> updateBalance(@RequestBody Balance balance){
+    public ResponseEntity<AppMessage> updateBalance(@RequestBody Balance balance) {
         balanceServices.update(balance);
         return new ResponseEntity<>(new AppMessage("Actualizado"), HttpStatus.OK);
     }

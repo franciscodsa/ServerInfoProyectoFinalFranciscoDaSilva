@@ -38,8 +38,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     FilterChain chain)
             throws ServletException, IOException {
 
-        // Verificar si la URI de la solicitud está en las rutas permitidas
-        //todo esto creo que no te hara falta para nada
+
         String path = request.getRequestURI();
         if (path.contains("/addClient")) {
             chain.doFilter(request, response);

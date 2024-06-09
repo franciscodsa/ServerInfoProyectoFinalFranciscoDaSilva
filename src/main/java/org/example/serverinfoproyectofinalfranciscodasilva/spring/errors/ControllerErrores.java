@@ -16,26 +16,27 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ControllerErrores extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(PublicKeyException.class)
-    public ResponseEntity<AppMessage> handleKeyException(PublicKeyException e){
+    public ResponseEntity<AppMessage> handleKeyException(PublicKeyException e) {
         AppMessage appMessage = new AppMessage(e.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appMessage);
     }
 
     @ExceptionHandler(UsersException.class)
-    public ResponseEntity<AppMessage> handleKeyException(UsersException e){
+    public ResponseEntity<AppMessage> handleKeyException(UsersException e) {
         AppMessage appMessage = new AppMessage(e.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appMessage);
     }
 
     @ExceptionHandler(FilesException.class)
-    public ResponseEntity<AppMessage> handleKeyException(FilesException e){
+    public ResponseEntity<AppMessage> handleKeyException(FilesException e) {
         AppMessage appMessage = new AppMessage(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appMessage);
     }
+
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<AppMessage> handleKeyException(AccessDeniedException e){
+    public ResponseEntity<AppMessage> handleKeyException(AccessDeniedException e) {
         AppMessage appMessage = new AppMessage(Constantes.NO_TIENE_ROL_PERMITIDO);
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(appMessage);
     }

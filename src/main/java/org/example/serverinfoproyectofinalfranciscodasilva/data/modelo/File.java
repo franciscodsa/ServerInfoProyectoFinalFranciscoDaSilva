@@ -37,4 +37,5 @@ public class File {
 
     @OneToOne(mappedBy = "files")
     private Balance balance;
+
 }

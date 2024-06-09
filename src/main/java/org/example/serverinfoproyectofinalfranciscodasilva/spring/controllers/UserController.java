@@ -31,13 +31,6 @@ public class UserController {
 
     }
 
-/*
-    @GetMapping()
-    public List<User> getAllUsers() {
-        return userServices.getAllUsers();
-    }
-*/
-
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
     @GetMapping("{email}")
     public ResponseEntity<User> getUserById(@PathVariable String email) {

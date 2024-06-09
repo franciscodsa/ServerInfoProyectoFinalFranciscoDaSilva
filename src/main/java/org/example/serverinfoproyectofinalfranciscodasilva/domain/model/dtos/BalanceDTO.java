@@ -3,11 +3,13 @@ package org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class BalanceDTO {
@@ -29,7 +31,7 @@ public class BalanceDTO {
         this.expenses = expenses;
         this.irpf = irpf;
         this.iva = iva;
-        this.date= LocalDateTime.now();
+        this.date = LocalDateTime.now();
         this.clientEmail = clientEmail;
     }
 }

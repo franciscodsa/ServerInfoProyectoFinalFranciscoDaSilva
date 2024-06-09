@@ -9,7 +9,7 @@ import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.Cli
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.FileRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
-import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FilesDBInfoDTO;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FileInfoDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -27,34 +27,6 @@ public class FileServices {
     private final FileRepository fileRepository;
     private final BalanceRepository balanceRepository;
     private final ClientRepository clientRepository;
-
-
-    /*@Transactional
-    public FilesDB store(MultipartFile file, String description, String clientEmail, InvoiceType invoiceType, Balance balance) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
-        try {
-           if (!clientRepository.existsById(clientEmail)){
-               throw new UsersException("No existe cliente, verifique email: " + clientEmail);
-            }
-
-
-            FilesDB filesDB = new FilesDB();
-
-            filesDB.setFileName(fileName);
-            filesDB.setFileType(file.getContentType());
-            filesDB.setData(file.getBytes());
-            filesDB.setDescription(description);
-            filesDB.setClientEmail(clientEmail);
-            filesDB.setInvoiceType(invoiceType);
-            filesDB.setDate(LocalDateTime.now());
-
-            return fileDBRepository.save(filesDB);
-        } catch (IOException e) {
-            //todo colocar excepcion mapeada
-            throw new RuntimeException(e);
-        }
-    }*/
 
     @Transactional
     public File store(MultipartFile file, String description, String clientEmail, InvoiceType invoiceType, Balance balance) {
@@ -80,7 +52,7 @@ public class FileServices {
             // Set the file reference in the balance
             balance.setFiles(filesDB);
             balance.setDate(LocalDateTime.now());
-            balance.setIrpf(calculateIrpf(balance.getIncome(),balance.getExpenses())); // Calcular IRPF antes de guardar
+            balance.setIrpf(calculateIrpf(balance.getIncome(), balance.getExpenses())); // Calcular IRPF antes de guardar
             balance.setQuarter(getCurrentQuarter());
 
             // Save balance information
@@ -92,22 +64,19 @@ public class FileServices {
         }
     }
 
-
-    //todo modificar para sar el optional y enviar excepcion en caso de error
     public File getFile(Long id) {
         return fileRepository.findById(id).get();
     }
 
-    public List<FilesDBInfoDTO> getFilesByClient(String clientEmail) {
-        final List<FilesDBInfoDTO> filesInfoByClient = fileRepository.getFilesInfoByClient(clientEmail);
+    public List<FileInfoDTO> getFilesByClient(String clientEmail) {
         return fileRepository.getFilesInfoByClient(clientEmail);
     }
 
-    public List<FilesDBInfoDTO> getExpensesFilesByClient(String clientEmail) {
+    public List<FileInfoDTO> getExpensesFilesByClient(String clientEmail) {
         return fileRepository.getFilesInfoByInvoiceTypeAndClient(clientEmail, InvoiceType.EXPENSE);
     }
 
-    public List<FilesDBInfoDTO> getIncomeFilesByClient(String clientEmail) {
+    public List<FileInfoDTO> getIncomeFilesByClient(String clientEmail) {
         return fileRepository.getFilesInfoByInvoiceTypeAndClient(clientEmail, InvoiceType.INCOME);
     }
 

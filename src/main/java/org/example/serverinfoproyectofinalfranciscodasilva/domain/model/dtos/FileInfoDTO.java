@@ -1,15 +1,16 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class FilesDBInfoDTO {
+@NoArgsConstructor
+public class FileInfoDTO {
     private Long id;
     private String fileName;
     private String description;
@@ -18,7 +19,7 @@ public class FilesDBInfoDTO {
     private Double total;
     private Double iva;
 
-    public FilesDBInfoDTO(Long id, String fileName, String description, LocalDateTime date, Long balanceId, Double income, Double expenses, Double iva) {
+    public FileInfoDTO(Long id, String fileName, String description, LocalDateTime date, Long balanceId, Double income, Double expenses, Double iva) {
         this.id = id;
         this.fileName = fileName;
         this.description = description;

@@ -20,8 +20,6 @@ public class UserServices {
     private final ClientRepository clientRepository;
     private final FileRepository filesRepository;
     private final BalanceRepository balanceRepository;
-/*    private final ChatsRepository chatsRepository;
-    private final MessagesRepository messagesRepository;*/
 
     public User addUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
@@ -31,9 +29,6 @@ public class UserServices {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsersException("Usuario inexistente"));
@@ -50,11 +45,6 @@ public class UserServices {
 
         // Elimina al contador y coloca en null el accountantEmail de sus clientes para que puedan ser reasignados a otro contador
         accountantRepository.findById(email).ifPresent(accountant -> {
-         /*   chatsRepository.findByAccountantEmail(email).ifPresent(chat -> {
-                messagesRepository.deleteAllByChatId(chat.getId());
-                chatsRepository.delete(chat);
-            });*/
-
             clientRepository.findAllByAccountantEmail(email).forEach(client -> {
                 client.setAccountantEmail(null);
                 clientRepository.save(client);
@@ -69,14 +59,11 @@ public class UserServices {
             filesRepository.getFilesInfoByClient(email).forEach(file -> balanceRepository.deleteByFilesId(file.getId()));
 
             filesRepository.deleteAllByClientEmail(email);
-           /* chatsRepository.findByClientEmail(email).ifPresent(chat -> {
-                messagesRepository.deleteAllByChatId(chat.getId());
-                chatsRepository.delete(chat);
-            });*/
+
             clientRepository.delete(client);
         });
 
-        // Finally, delete the user
+        // elimina el usuario
         userRepository.deleteById(email);
     }
 
