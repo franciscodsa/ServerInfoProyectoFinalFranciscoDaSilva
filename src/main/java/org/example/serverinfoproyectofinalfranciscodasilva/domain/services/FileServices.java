@@ -9,6 +9,7 @@ import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.Cli
 import org.example.serverinfoproyectofinalfranciscodasilva.data.repositories.FileRepository;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.common.ConstantesServices;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesException;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesNotFoundException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.dtos.FileInfoDTO;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -66,7 +68,13 @@ public class FileServices {
     }
 
     public File getFile(Long id) {
-        return fileRepository.findById(id).get();
+         Optional<File> file = fileRepository.findById(id);
+
+         if (file.isPresent()){
+             return file.get();
+         }else {
+             throw new FilesNotFoundException(ConstantesServices.ARCHIVO_NO_ENCONTRADO);
+         }
     }
 
     public List<FileInfoDTO> getFilesByClient(String clientEmail) {
@@ -84,7 +92,7 @@ public class FileServices {
     @Transactional
     public void deleteFile(Long fileId) {
         if (!fileRepository.existsById(fileId)) {
-            throw new FilesException(ConstantesServices.ARCHIVO_NO_ENCONTRADO);
+            throw new FilesNotFoundException(ConstantesServices.ARCHIVO_NO_ENCONTRADO);
         }
 
         balanceRepository.deleteByFilesId(fileId);

@@ -10,10 +10,12 @@ import lombok.RequiredArgsConstructor;
 import org.example.serverinfoproyectofinalfranciscodasilva.common.Constantes;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.PublicKeyException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.*;
 import java.security.cert.CertificateException;
 
@@ -64,8 +66,8 @@ public class JwtTokenUtil {
     private PublicKey getPublicKey() {
         try {
             KeyStore ks = KeyStore.getInstance(Constantes.PKCS_12);
-            try (FileInputStream fis = new FileInputStream(nombreKeyStore)) {
-                ks.load(fis, claveKeyStore.toCharArray());
+            try (InputStream is = new ClassPathResource(nombreKeyStore.replace("classpath:", "")).getInputStream()) {
+                ks.load(is, claveKeyStore.toCharArray());
             }
             KeyStore.PasswordProtection pt = new KeyStore.PasswordProtection(claveKeyStore.toCharArray());
             KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry(nombreServer, pt);
@@ -74,8 +76,7 @@ public class JwtTokenUtil {
             } else {
                 throw new PublicKeyException(Constantes.NO_SE_ENCONTRO_LA_ENTRADA_DE_CLAVE_PRIVADA_EN_EL_KEYSTORE);
             }
-        } catch (UnrecoverableEntryException | CertificateException | KeyStoreException | IOException |
-                 NoSuchAlgorithmException e) {
+        } catch (UnrecoverableEntryException | CertificateException | KeyStoreException | IOException | NoSuchAlgorithmException e) {
             throw new PublicKeyException(Constantes.ERROR_INESPERADO_AL_VALIDAR_TOKEN);
         }
     }

@@ -1,10 +1,7 @@
 package org.example.serverinfoproyectofinalfranciscodasilva.spring.errors;
 
 import org.example.serverinfoproyectofinalfranciscodasilva.common.Constantes;
-import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.BalanceException;
-import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.FilesException;
-import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.PublicKeyException;
-import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.UsersException;
+import org.example.serverinfoproyectofinalfranciscodasilva.domain.exceptions.*;
 import org.example.serverinfoproyectofinalfranciscodasilva.domain.model.AppMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +32,13 @@ public class ControllerErrores extends ResponseEntityExceptionHandler {
         AppMessage appMessage = new AppMessage(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(appMessage);
     }
+
+    @ExceptionHandler(FilesNotFoundException.class)
+    public ResponseEntity<AppMessage> handleKeyException(FilesNotFoundException e) {
+        AppMessage appMessage = new AppMessage(e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(appMessage);
+    }
+
 
     @ExceptionHandler(BalanceException.class)
     public ResponseEntity<AppMessage> handleKeyException(BalanceException e) {

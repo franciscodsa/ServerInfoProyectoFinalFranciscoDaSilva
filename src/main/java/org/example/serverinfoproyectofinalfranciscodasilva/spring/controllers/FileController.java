@@ -56,19 +56,16 @@ public class FileController {
     public ResponseEntity<byte[]> getFile(@PathVariable Long fileId) {
         File file = fileServices.getFile(fileId);
 
-        if (file != null) {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType(file.getFileType())); // Establece el tipo MIME correcto
-            headers.setContentLength(file.getData().length); // Establece la longitud del contenido
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType(file.getFileType())); // Establece el tipo MIME correcto
+        headers.setContentLength(file.getData().length); // Establece la longitud del contenido
 
-            // Agregar el encabezado Content-Disposition con el nombre del archivo
-            String fileName = file.getFileName(); // Reemplaza esto con el nombre del archivo real
-            headers.setContentDispositionFormData("attachment", fileName);
+        // Agregar el encabezado Content-Disposition con el nombre del archivo
+        String fileName = file.getFileName(); // Reemplaza esto con el nombre del archivo real
+        headers.setContentDispositionFormData("attachment", fileName);
 
-            return new ResponseEntity<>(file.getData(), headers, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(file.getData(), headers, HttpStatus.OK);
+
     }
 
     @RolesAllowed({ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_USER})
